@@ -4,20 +4,21 @@ import { BsFillClockFill } from "react-icons/bs";
 import { BsCardList } from "react-icons/bs";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FcAlarmClock } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 export default function Navbar({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-rose-500 mb-3">
+      <nav className="relative flex flex-wrap items-center justify-between px-2 py-2 bg-rose-500 mb-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <a
+            <Link
               className="text-2xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-              href="#pablo"
+              to="/"
             >
-              <BsBook /> Study With Me
-            </a>
+              <BsBook />
+            </Link>
             <button
               className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
@@ -35,38 +36,39 @@ export default function Navbar({ fixed }) {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
+                  to="/"
                 >
-                  <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
+                  <i className=" text-lg leading-lg text-white opacity-75"></i>
                   <BsFillClockFill />
                   <span className="ml-2">study</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
+                  to="/list"
                 >
-                  <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i>
+                  <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
                   <BsCardList />
                   <span className="ml-2">list</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
+                  to="/Profile"
                 >
                   <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i>
                   <span className="ml-2">Profile</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
+      <hr />
     </>
   );
 }
