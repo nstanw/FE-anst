@@ -1,5 +1,13 @@
-body{
-  background-color:rgb(244 63 94);
+body {
+  background-color: rgb(244 63 94);
   width: 70%;
-  margin: auto;
+  margin: auto; 
+   color: rgb(255, 255, 255);
+}
+
+#taskText {
+  width: 50%;
+}
+#HieuSuat{
+  width: 50%;
 }

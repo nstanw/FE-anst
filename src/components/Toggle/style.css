@@ -1,6 +1,40 @@
-.toogle {
-    height: 100px;
-    width: 200px;
-    border-radius: 50px;
-    margin: auto;
+.modeCSS {
+  text-align: center;
+  display: flex;
 }
+.toogle {
+  height: 100px;
+  width: 200px;
+  border-radius: 50px;
+  margin: auto;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR25DvvPFonURydUpLR-1apzik441ylitwLyQ&usqp=CAU');
+
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle.night {
+  background-image: linear-gradient(midnightblue, rebeccapurple);
+}
+
+.night > .notch {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/579/579851.png');
+    background-size: cover;
+  box-shadow: 0 0 5px whitesmoke;
+  transform: translate(100px, 0);
+}
+
+.notch {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  background-image: url('https://i.pinimg.com/236x/fa/d3/72/fad372b93478dfb037a62e41d1f97660.jpg');
+  background-size: cover;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  box-shadow: 0 0 5px yellow;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+

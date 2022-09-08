@@ -48,11 +48,11 @@ export default function Navbar({ fixed }) {
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  to="/list"
+                  to="/report"
                 >
                   <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
                   <BsCardList />
-                  <span className="ml-2">list</span>
+                  <span className="ml-2">Report</span>
                 </Link>
               </li>
               <li className="nav-item">
