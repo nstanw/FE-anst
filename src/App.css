@@ -2,9 +2,18 @@ body {
   background-color: rgb(244 63 94);
   width: 70%;
   margin: auto; 
-   color: rgb(255, 255, 255);
+   color: rgb(0, 0, 0);
 }
-
+.form-design {
+  width: auto;
+  
+}
+form {
+  text-align: center;
+}
+button {
+  color: white !important;
+}
 #taskText {
   width: 50%;
 }
