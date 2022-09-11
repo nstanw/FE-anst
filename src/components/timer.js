@@ -1,0 +1,100 @@
+import { useEffect, useState } from 'react';
+
+function Timer(props) {
+  const [countdown, setCountdown] = useState(props.task.tomato * 60);
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setCountdown((preState) => {
+        if (preState > 0) {
+          console.log(preState);
+          return preState - 1;
+        }
+      });
+    }, 1);
+    return (timerId) => {
+      clearInterval(timerId);
+    };
+  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // const data = e.target.map(feild => feild.value); 
+   const data = {
+    hieuQua:  e.target[0].value,
+    note:  e.target[1].value,
+      task : props.task,
+    };
+    console.log(data);
+   
+  }
+  const Feedback = () => {
+    return (
+      <>
+        <form onSubmit={handleSubmit} className='feedback'>
+          <div className='item-center'>
+            <label htmlFor='hieuQua'>Mức độ hiệu quả(1-10)</label>
+          </div>
+          <div className='py-2'>
+            <select
+              name='score'
+              id='score'
+            >
+              <option value='1'>1(Không hiệu quả)</option>
+              <option value='2'>2(Không ăn thua)</option>
+              <option value='3'>3(qua chuyện)</option>
+              <option value='4'>4(Tàm tạm)</option>
+              <option value='5'>5(Trung Bình)</option>
+              <option value='6'>6(Vừa)</option>
+              <option
+                value='7'
+                selected
+              >
+                7(Khá)
+              </option>
+              <option value='8'>8(Tốt)</option>
+              <option value='9'>9(Hảo Hảo)</option>
+              <option value='10'>10(Tuyệt vời)</option>
+            </select>
+          </div>
+          <div>
+            <textarea
+              className=''
+              name='notes'
+              id='note'
+              placeholder='Notes your Feedback'
+            ></textarea>
+          </div>
+          <div>
+            <button type='submit'>
+              Send Feedback
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  };
+  return (
+    <>
+      <div className='row'>
+        <div>
+          <h2 className='text-center'>Timer</h2>
+        </div>
+        <div
+          id='show-Timer'
+          className='text-center '
+        >
+          {countdown > 0 ? (
+            <h1 className='font-weight-bold display-1'>
+              {' '}
+              {Math.floor(countdown / 60)}:{countdown % 60}{' '}
+            </h1>
+          ) : (
+            <Feedback />
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Timer;
