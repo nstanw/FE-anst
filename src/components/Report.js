@@ -1,4 +1,5 @@
 import { Chart } from 'react-google-charts';
+import {motion} from 'framer-motion';
 function Report() {
   const data = [
     ['Element', 'Time', { role: 'style' }],
@@ -57,7 +58,12 @@ function Report() {
 
 
   return (
-    <div className='row'>
+    <motion.div
+    className='study row'
+    initial={{ w: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    >
         <div className='text-center font-weight-bold display-1'>
         <h1>REPORT</h1>
         </div>
@@ -79,7 +85,7 @@ function Report() {
           options={options}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

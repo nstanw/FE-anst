@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Report from './Report';
 import Timer from './timer';
+import { motion } from 'framer-motion';
 
 export default function Study() {
   const location = useLocation();
@@ -107,7 +108,12 @@ export default function Study() {
   };
 
   return (
-    <>
+    <motion.div
+      className='study'
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.2 } }}
+    >
       <StudyAndMode />
       <>
         <div className='task-title'>
@@ -121,7 +127,12 @@ export default function Study() {
             <Timer task={task} />
           </>
         ) : (
-          <div className='form-design d-flex justify-content-center'>
+          <motion.div
+            className='form-design d-flex justify-content-center'
+            initial={{ width: 0 }}
+            animate={ {width: "100%"}}
+            exit={{ x: window.innerWidth  }}
+          >
             <form
               className='p-3'
               action=''
@@ -158,9 +169,9 @@ export default function Study() {
                 </button> */}
               </div>
             </form>
-          </div>
+          </motion.div>
         )}
       </>
-    </>
+    </motion.div>
   );
 }
