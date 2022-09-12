@@ -7,11 +7,10 @@ function Timer(props) {
     const timerId = setInterval(() => {
       setCountdown((preState) => {
         if (preState > 0) {
-          console.log(preState);
           return preState - 1;
         }
       });
-    }, 1);
+    }, 1000);
     return (timerId) => {
       clearInterval(timerId);
     };
@@ -76,15 +75,13 @@ function Timer(props) {
   return (
     <>
       <div className='row'>
-        <div>
-          <h2 className='text-center'>Timer</h2>
-        </div>
+       
         <div
           id='show-Timer'
           className='text-center '
         >
           {countdown > 0 ? (
-            <h1 className='font-weight-bold display-1'>
+            <h1 className='countdown'>
               {' '}
               {Math.floor(countdown / 60)}:{countdown % 60}{' '}
             </h1>
