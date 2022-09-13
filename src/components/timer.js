@@ -78,7 +78,7 @@ function Timer(props) {
        
         <div
           id='show-Timer'
-          className='text-center '
+          className='text-center'
         >
           {countdown > 0 ? (
             <h1 className='countdown'>

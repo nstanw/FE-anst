@@ -6,7 +6,7 @@ import Study from './components/Study';
 import Toggle from '../src/components/Toggle/Index';
 import Report from './components/Report';
 import Animation from './components/Animation';
-import Thi from './components/testThi';
+
 
 function App() {
   return (
