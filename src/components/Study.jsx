@@ -5,9 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { increment, incrementAmount } from '../features/counter/counterSlice';
 import { fetchUsers } from '../features/data/studyDetail';
 import { TaskAbortError } from '@reduxjs/toolkit';
+import {
+  showTaskForm,
+  activeYoutube,
+  activeToogle,
+  activeImage,
+  linkYoutube,
+} from '../features/data/studyDetail';
 
 export default function Study() {
   const minutes = useSelector((state) => state.counter.value);
+  const study = useSelector((state) => state.study);
+  console.log('study', study);
   const dispatch = useDispatch();
   const [toggled, setToggled] = React.useState(false);
   const [showFeeback, setShowFeeback] = React.useState(false);
@@ -16,7 +25,7 @@ export default function Study() {
     task: '',
     tomato: 25,
   });
-  const taskRef = useRef();
+
   const handleToggled = () => {
     setToggled(!toggled);
   };
@@ -54,34 +63,82 @@ export default function Study() {
       <>
         {/* study and mode */}
         <div className='text-center'>
-          <h1 className='font-weight-bold display-1'>Study</h1>
-          <div>
-            <label
-              htmlFor='large-toggle'
-              className='inline-flex relative items-center cursor-pointer'
+          <div className='display'>
+            <button
+              className={`display__toogle display--button ${study.active.toogle}`}
+              onClick={() => dispatch(activeToogle())}
             >
-              <input
-                type='checkbox'
-                value=''
-                id='large-toggle'
-                // checked
-                className='sr-only peer'
-              />
-            </label>
-            <Toogle />
-            <div className='pt-6'>
-              <span>#Time to Focus</span>
-            </div>
+              Toogle
+            </button>
+            <button
+              className={`display__youtube display--button ${study.active.youtube}`}
+              onClick={() => dispatch(activeYoutube())}
+            >
+              Youtube
+            </button>
+            <button
+              className={`display__image display--button ${study.active.image} `}
+              onClick={() => dispatch(activeImage())}
+            >
+              Image
+            </button>
           </div>
+
+          {study.active.toogle === 'active' ? (
+            <div className='display__content'>
+              <h1 className='font-weight-bold display-1'>Study</h1>
+              <div>
+                <label
+                  htmlFor='large-toggle'
+                  className='inline-flex relative items-center cursor-pointer'
+                >
+                  <input
+                    type='checkbox'
+                    value=''
+                    id='large-toggle'
+                    // checked
+                    className='sr-only peer'
+                  />
+                </label>
+                <Toogle />
+                <div className='pt-6'>
+                  <span>#Time to Focus</span>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {study.active.youtube === 'active' ? (
+            <div className='display__content'>
+              <div className='display__content--padding'>
+                <Youtube
+                  link={study.youtube.link}
+                  autoplay={study.youtube.autoplay}
+                />
+                <div className='display__content__form'></div>
+              </div>
+            </div>
+          ) : null}
+
+          {study.active.image === 'active' ? (
+            <div className='display__content'>
+              <div className='display__content--padding'>
+                <ShowImage />
+              </div>
+              <div className='display__content__form'></div>
+            </div>
+          ) : null}
         </div>
       </>
     );
   };
+
   const Toogle = () => {
     return (
       <div className='modeCSS'>
         <div className={`toogle${toggled ? ' night' : ''}`}>
           <div
+        
             onClick={() => {
               hideTimer();
               handleToggled();
@@ -93,32 +150,34 @@ export default function Study() {
     );
   };
   function ShowImage() {
-    return(
-      <div className="ShowImage">
-        <img src="maxresdefault.jpg"/>
+    return (
+      <div className='ShowImage'>
+        <img src='std.jpg' />
       </div>
-    )
+    );
   }
-  const Youtube = () => {
-    const link =
-      'https://www.youtube.com/watch?v=ZEbCz7B2-Eg&ab_channel=MariaSilva';
+  const Youtube = ({
+    link = 'https://www.youtube.com/watch?v=ZEbCz7B2-Eg&ab_channel=MariaSilva',
+    autoplay,
+  }) => {
+    autoplay ? (autoplay = '?autoplay=1') : (autoplay = '');
     const youtubeId = link.split('watch?v=')[1].split('&')[0];
     console.log(youtubeId);
-    return(
+    return (
       <div className='youtube row'>
-      <div className=''>
-        <iframe
-          width='100%'
-          height='315'
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
-          title='YouTube video player'
-          frameBorder='0'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-          allowFullScreen
+        <div className=''>
+          <iframe
+            width='100%'
+            height='315'
+            src={`https://www.youtube.com/embed/${youtubeId}${autoplay}`}
+            title='YouTube video player'
+            frameBorder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
           ></iframe>
+        </div>
       </div>
-    </div>
-  )
+    );
   };
 
   return (
@@ -130,23 +189,28 @@ export default function Study() {
     >
       <div className='marginTop'></div>
       <div className='children'>
-        {!toggled ? (
-          <div className='toogleButton'>
-            <StudyAndMode />
-          </div>
-        ) : (
-          <Youtube />
-        )}
+        <div className='toogleButton'>
+          <StudyAndMode />
+        </div>
+
         <div className='task-timer'>
-          <div className='coffe'>
-            <img
-              src='coffe.png'
-              alt=''
-            />
-          </div>
+          {!showTimer ? (
+            <div className='coffe'>
+              <img
+                src='coffe.png'
+                alt=''
+              />
+            </div>
+          ) : null}
           {showTimer ? (
             <>
               <Timer task={task} />
+              <div className='coffe'>
+              <img
+                src='coffe.png'
+                alt=''
+              />
+            </div>
             </>
           ) : (
             <div className='taskDetail'>
@@ -158,7 +222,10 @@ export default function Study() {
               ></motion.div>
               {/* // tass form */}
               <div className='task'>
-                <div className='task-detail'>
+                <div
+                  className='task-detail'
+                  onClick={() => dispatch(showTaskForm())}
+                >
                   <div className='p-3 container-taskDetail'>
                     <div className='taskName'>
                       {task.task ? (
@@ -178,54 +245,60 @@ export default function Study() {
                     </div>
                   </div>
                 </div>
-                <div className='taskForm'>
-                  <div className='taskPadding'>
-                    <div className='paddingUpDown'>
-                      <div className='addTaskDetail'>
-                        <div>
-                          <input
-                            className='inputAddTask'
-                            placeholder='What do you want to do?'
-                            name='task'
-                            value={task.task}
-                            onChange={(e) => inputsHandler(e)}
-                          />
-                        </div>
-                        <div className='pomodoro'>
-                          <span>Pomodoro</span>
+                {study.taskForm ? (
+                  <div className='form'>
+                    <div className='taskPadding'>
+                      <div className='paddingUpDown'>
+                        <div className='addTaskDetail'>
                           <div>
                             <input
-                              value={task.tomato}
+                              className='inputAddTask'
+                              placeholder='What do you want to do?'
+                              name='task'
+                              value={task.task}
                               onChange={(e) => inputsHandler(e)}
-                              className='mt-2 countPomodoro'
-                              type='number'
-                              name='tomato'
-                              id='tomato'
-                              placeholder='Nhập thời gian học'
                             />
-                            <button
-                              onClick={handleCounterUp}
-                              className='upPomodoro'
-                            >
-                              <img src='/caret-up.png' />
-                            </button>
-                            <button
-                              onClick={handleCounterDown}
-                              className='downPomodoro'
-                            >
-                              <img src='/caret-down.png' />
-                            </button>
+                          </div>
+                          <div className='pomodoro'>
+                            <span>Pomodoro</span>
+                            <div>
+                              <input
+                                value={task.tomato}
+                                onChange={(e) => inputsHandler(e)}
+                                className='mt-2 countPomodoro'
+                                type='number'
+                                name='tomato'
+                                id='tomato'
+                                placeholder='Nhập thời gian học'
+                              />
+                              <button
+                                onClick={handleCounterUp}
+                                className='upPomodoro'
+                              >
+                                <img src='/caret-up.png' />
+                              </button>
+                              <button
+                                onClick={handleCounterDown}
+                                className='downPomodoro'
+                              >
+                                <img src='/caret-down.png' />
+                              </button>
+                            </div>
                           </div>
                         </div>
+                        <div className='py-2'></div>
                       </div>
-                      <div className='py-2'></div>
+                    </div>
+                    <div className='saveTask'>
+                      <button
+                        className='btnSave'
+                        onClick={() => dispatch(showTaskForm())}
+                      >
+                        Save
+                      </button>
                     </div>
                   </div>
-                  <div className='saveTask'>
-                    <button id='btnCancel'>Cancel</button>
-                    <button id='btnSave'>Save</button>
-                  </div>
-                </div>
+                ) : null}
               </div>
             </div>
           )}

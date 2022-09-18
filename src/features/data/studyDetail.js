@@ -10,23 +10,64 @@ export const fetchUsers = createAsyncThunk(
     return data;
   }
 );
-const usersSlice = createSlice({
-  name: 'users',
+const studySlice = createSlice({
+  name: 'study',
   initialState: {
-    name: [],
+    modeOn: false,
+    taskForm: false,
+    active:{
+      toogle: 'active',
+      youtube: '',
+      image:'',
+    },
+    youtube: {
+      link: 'https://www.youtube.com/watch?v=1BUq426m7Fg',
+      autoplay: false,
+    },
+    task: [{
+      name: 'Task...',
+      countDown: 25 ,
+    }],
   },
-  reducers: {},
+  reducers: {
+    showTaskForm: (state) => {
+      state.taskForm = !state.taskForm;
+    },
+    resetForm: (state) => {
+      state.task = state.task;
+    },
+    activeYoutube: (state) => {
+      state.active.youtube = 'active';
+      state.active.toogle = '';
+      state.active.image = '';
+    },
+    activeImage: (state) => {
+      state.active.youtube = '';
+      state.active.toogle = '';
+      state.active.image = 'active';
+    },
+    activeToogle: (state) => {
+      state.active.youtube = '';
+      state.active.toogle = 'active';
+      state.active.image = '';
+    },
+    linkYoutube: (state, action) => {
+      state.youtube.link = action.payload.link;
+      state.youtube.autoplay = action.payload.autoplay;
+    },
+  },
   extraReducers: {
     [fetchUsers.fulfilled]: (state, action) => {
-      state.name.push(action.payload + 'fulloaded');
+      // state.name.push(action.payload + 'fulloaded');
     },
     [fetchUsers.pending]: (state, action) => {
-      state.name.push('pending');
+      // state.name.push('pending');
     },
     [fetchUsers.rejected]: (state, action) => {
-      state.name.push(action.payload + ' rejected');
+      // state.name.push(action.payload + ' rejected');
     },
   },
 });
-export const { reducer: user } = usersSlice;
+export const { showTaskForm,activeYoutube, activeImage, activeToogle, linkYoutube, resetForm } = studySlice.actions;
+export const { reducer: user } = studySlice;
 export default user;

@@ -29,6 +29,7 @@
   width: 90px;
   border-radius: 50%;
   background-image: url('https://i.pinimg.com/236x/fa/d3/72/fad372b93478dfb037a62e41d1f97660.jpg');
+  /* background-image: url("../../../public/bee.png"); */
   background-size: cover;
   position: absolute;
   top: 5px;

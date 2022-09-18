@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, useLocation, Router } from 'react-router-
 import { AnimatePresence } from 'framer-motion';
 import Study from './Study';
 import Report from './Report';
+import WorkingStatus from './Result';
+import Result from './Result';
 
 function Animation() {
   const location = useLocation();
@@ -20,8 +22,8 @@ function Animation() {
             element={<Report />}
           />
           <Route
-            path='/profile'
-            element={<Study />}
+            path='/result'
+            element={<Result/>}
           />
           <Route
             path='*'

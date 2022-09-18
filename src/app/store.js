@@ -5,11 +5,11 @@ import {
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import counterReducer from '../features/counter/counterSlice';
-import usersReducer from '../features/data/studyDetail';
+import studyReducer from '../features/data/studyDetail';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
-  users : usersReducer,
+  study : studyReducer,
 });
 
 export const store = configureStore({
