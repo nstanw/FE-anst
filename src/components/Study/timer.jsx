@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ggChartActions } from '../../features/data/GoogleCharSlice';
+import { actions } from '../../features/toogle/toogleSlice';
+import GoogleChar from '../Report/GoogleChar';
 
-function Timer(props) {
-  const [countdown, setCountdown] = useState(props.task.tomato * 60);
+function Timer() {
+  const props = useSelector((state) => state.study);
+  const toogle = useSelector((state) => state.toogle);
+  const dispatch = useDispatch();
+  const [countdown, setCountdown] = useState(props.task.countDown * 60);
+  // const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -11,7 +19,7 @@ function Timer(props) {
           return preState - 1;
         }
       });
-    }, 1000);
+    }, 1);
     return (timerId) => {
       clearInterval(timerId);
     };
@@ -25,6 +33,9 @@ function Timer(props) {
       task: props.task,
     };
     console.log(data);
+    const payload = ['1234xx', data.task.countDown, 'gold'];
+    dispatch(ggChartActions.addColumChart([payload]));
+   
   };
   const Feedback = () => {
     return (
@@ -66,14 +77,12 @@ function Timer(props) {
                 ></textarea>
               </div>
               <div className='saveTask'>
-                  <button
-                    type='submit'
-                    className='btnSave'
-                  >    
-                <Link to={'/result'}>
-                    Send Feedback
-                </Link>
-                  </button>
+                <button
+                  type='submit'
+                  className='btnSave'
+                >
+                  Send Feedback
+                </button>
               </div>
             </form>
           </div>
@@ -88,14 +97,18 @@ function Timer(props) {
           id='show-Timer'
           className='text-center'
         >
+         
           {countdown > 0 ? (
             <h1 className='countdown'>
               {Math.floor(countdown / 60)}:
               {countdown % 60 < 10 ? `0${countdown % 60}` : countdown % 60}
+          
             </h1>
           ) : (
-            <Feedback />
-            
+          <>
+        
+          <div>{toogle.feedback ?   <Feedback /> : <GoogleChar />}</div>
+          </>
           )}
         </div>
       </div>

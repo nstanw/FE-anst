@@ -1,6 +1,8 @@
 import { Chart } from 'react-google-charts';
 import {motion} from 'framer-motion';
+import { useSelector } from 'react-redux';
 function Report() {
+  const chart = useSelector((state) => state.chart)
   const data = [
     ['Element', 'Time', { role: 'style' }],
     ['Mon', 8.94, '#b87333'], // RGB value

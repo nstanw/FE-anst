@@ -2,9 +2,9 @@ import Header from '../src/components/Header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer';
-import Study from './components/Study';
+import Study from './components/Study/Study';
 import Toggle from '../src/components/Toggle/Index';
-import Report from './components/Report';
+import Report from './components/Report/Report';
 import Animation from './components/Animation';
 
 
