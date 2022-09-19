@@ -5,6 +5,7 @@ import Report from './Report/Report';
 import WorkingStatus from './Result';
 import Result from './Result';
 import Status from './Status/Status';
+import ApexChart from './Report/ApexChart';
 
 function Animation() {
   const location = useLocation();
@@ -28,7 +29,7 @@ function Animation() {
           />
           <Route
             path='/result'
-            element={<Result/>}
+            element={<ApexChart/>}
           />
           <Route
             path='*'

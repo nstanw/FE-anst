@@ -24,6 +24,9 @@ const studySlice = createSlice({
       name: 'Task...',
       countDown: 25 ,
     },
+    feedback:{
+      
+    }
   },
   reducers: {
     showTaskForm: (state) => {

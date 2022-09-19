@@ -22,13 +22,12 @@ const ToogleSlice = createSlice({
   },
   reducers: {
     reset: (state, action) => {
-      state = action.payload;
+      state.status = false;
+      state.feedback =  true;
     },
-
     mode: (state) => {
       state.status = !state.status;
     },
-
     modeOff: (state) => {
       state.status = false;
     },

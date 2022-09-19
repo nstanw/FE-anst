@@ -9,31 +9,13 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Study() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const initstate = {
-      status: false,
-      feedback: true,
-      form: false,
-      task: {
-        name: 'Task...',
-        time: 25,
-      },
-      active: {
-        toogle: 'active',
-        youtube: '',
-        image: '',
-      },
-      youtube: {
-        link: 'https://www.youtube.com/watch?v=fn1YBnSgva0&ab_channel=jawonee',
-        autoplay: false,
-      },
-    };
-    dispatch(actions.reset(initstate));
-  }, []);
   const navigate = useNavigate();
 
   const study = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
+  useEffect(() => {
+    toogle.status ? null : dispatch(actions.reset());
+  },[ toogle.status]);
 
   console.log('study', study);
   const [toggled, setToggled] = React.useState(false);
@@ -170,8 +152,8 @@ export default function Study() {
             hideTimer();
             // handleToggled();
             dispatch(actions.mode());
-            console.log(toogle.status);
-            toogle.status ? null : navigate('/status');
+            // console.log(toogle.status);
+            // toogle.status ? null : navigate('/status');
           }}
         >
           <div className='notch'></div>

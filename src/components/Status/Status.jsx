@@ -6,7 +6,7 @@ import Timer from "../Study/timer";
 function Status() {
     return ( 
         <>
-        <Display/>
+        {/* <Display/> */}
         <div className="feebackAndTime">
         <Timer/>
         </div>

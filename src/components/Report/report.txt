@@ -1,0 +1,35 @@
+
+
+input:
+- [] thời gian min max avg
+- [] hài lòng min max avg
+- [] time
+output:
+-> nên học buổi sáng hay chiều, thời gian bao lâu là hợp lí
+(nên học trong khoảng thời gian nào)
+
+- tổng thời gian học : 200p
+- thời gian trung bình (phiên học)
+- thời gian thấp nhất 
+- thời gian cao nhât
+
+- trung bình hài lòng ngày hôm nay
+- khoảng thời gian hài lòng nhất
+- khoảng thời gian không hài lòng
+
+
+-> khoảng thời gian hài lòng nhất của ngày
+-> thời gian học tối ưu
+
+
+
+khoảng thời gian tối ưu nhất để học là: số phút có mức hài lòng cao nhất
+thời điểm hài lòng nhất: điểm hài lòng cao nhất -> thời gian
+kết luận: khoảnh thời gian tối ưu nhất cho việc học là : $ phút buổi ?sáng
+thêm icon
+- bạn có xu hướng đạt hài lòng cao lúc: {mới giữa sau} khi học. hài lòng hơn bao nhiêu %
+- khoảng thời gian thích hợp nhất cho bạn là: thời gian có hài lòng cao nhất
+
+- ghi chú thêm:
+hài lòng nhất và hài lòng kém nhất
+bạn đã học được
