@@ -3,20 +3,32 @@ import Chart from 'react-apexcharts';
 import { useSelector } from 'react-redux';
 import AIcom from './AIcom';
 
-function ApexChart() {
-  const dataChart = useSelector((state) => state.apexChart);
-  console.log('dataChart', dataChart);
+function ApexChart(chartData) {
+ 
+  console.log('chartData task:', chartData);
+//   const chartData ={
+//     minutes: [],
+//     effective: [],
+//     labelsTime:[],
+
+//   };
+//  const a =  chartData.map(x => {
+//     chartData.minutes = [... chartData.minutes ,x.task.countDown]
+//     chartData.effective = [... chartData.effective ,x.effective]
+//     chartData.labelsTime = [... chartData.labelsTime ,x.labelsTime]
+//   })
+//   console.log(chartData);
   const data = {
     series: [
       {
         name: 'Số phút',
         type: 'column',
-        data: dataChart.data.x,
+        data: chartData.minutes,
       },
       {
         name: 'hài lòng',
         type: 'line',
-        data: dataChart.data.y,
+        data: chartData.effective,
       },
     ],
     options: {
@@ -31,16 +43,15 @@ function ApexChart() {
         width: [0, 4],
       },
       title: {
-        text: dataChart.name,
+        text: chartData.name,
       },
       dataLabels: {
 
         enabled: true,
         enabledOnSeries: [],
       },
-      labels: dataChart.options.labels,
+      labels: chartData.labelsTime,
       xaxis: {
-
         type: 'String',
       },
       yaxis: [
@@ -69,7 +80,7 @@ function ApexChart() {
           type='line'
           height={350}
         />
-      <AIcom/>
+      {/* <AIcom /> */}
       </div>
     </div>
   );

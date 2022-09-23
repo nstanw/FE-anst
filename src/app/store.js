@@ -9,13 +9,15 @@ import studyReducer from '../features/data/studyDetail';
 import toogleReducer from '../features/toogle/toogleSlice';
 import chartReducer from '../features/data/GoogleCharSlice';
 import apexChartReducer from '../features/data/ApexChartSlice';
+import taskReducer from '../features/data/TaskSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
-  study : studyReducer,
+  study: studyReducer,
   toogle: toogleReducer,
   chart: chartReducer,
   apexChart: apexChartReducer,
+  task: taskReducer,
 });
 
 export const store = configureStore({

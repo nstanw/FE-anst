@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { ApexChartActions } from '../../features/data/ApexChartSlice';
 function AIcom() {
-  const data = useSelector((state) => state.apexChart);
+  const chartData = useSelector(state => state.task.chartData)
   const dispatch = useDispatch();
-  console.log('aicom data: ', data);
-  const minutes = data.data.x;
-  const effective = data.data.y;
+  console.log('AIcom data: ', chartData);
+  const minutes = chartData.minutes;
+  const effective = chartData.effective;
   const maxEffective = Math.max.apply(0, effective);
   const minEffective = Math.min.apply(0, effective);
   const maxMinute = Math.max.apply(0, minutes);
@@ -14,8 +14,8 @@ function AIcom() {
   const sumEffective = effective.reduce((sum, effective) => sum + effective, 0);
   const avgEffective = sumEffective / effective.length || 0;
   const avgMinute = sumMinute / minutes.length || 0;
-  const notes = data.feedback.notes;
-  const skills = data.feedback.skills;
+  const notes = chartData.notes;
+  const skills = chartData.skills;
 
   const dataAIcom = {
     sumMinute: sumMinute,
@@ -50,7 +50,7 @@ function AIcom() {
             </div>
           </div>
         </div>
-        {data.AIcom.report ? (
+        {true ? (
           <div className='row'>
             <div className='AiCom__content col-lg-6 col-md-6 col-sm-12'>
               <ul>

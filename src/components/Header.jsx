@@ -15,15 +15,14 @@ export default function Navbar({ fixed }) {
       <nav className='relative flex flex-wrap items-center justify-between px-2 py-2'>
         <div className='container px-4 mx-auto flex flex-wrap items-center justify-between'>
           <div className='w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start'>
-            <Link
-              className='text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-white'
-              to='/'
-            >
-            <span
-            onClick={
-              ()=> dispatch(actions.reset())
-            }>bee Study</span>
-            </Link>
+            <span onClick={() => dispatch(actions.reset())}>
+              <Link
+                className='text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-white'
+                to='/'
+              >
+                bee Study
+              </Link>
+            </span>
             <button
               className='text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none'
               type='button'

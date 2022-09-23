@@ -6,16 +6,17 @@ import { showTaskForm, addTask } from '../../features/data/studyDetail';
 import { actions } from '../../features/toogle/toogleSlice';
 import { ggChart } from '../../features/data/GoogleCharSlice';
 import { useNavigate } from 'react-router-dom';
+import { getTask } from '../../features/data/TaskSlice';
 
 export default function Study() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const study = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
   useEffect(() => {
     toogle.status ? null : dispatch(actions.reset());
-  },[ toogle.status]);
+    dispatch(getTask());
+  }, [toogle.status]);
 
   console.log('study', study);
   const [toggled, setToggled] = React.useState(false);
@@ -78,7 +79,7 @@ export default function Study() {
                 dispatch(actions.activeToogle());
               }}
             >
-              Toogle
+              Mode
             </button>
             <button
               className={`display__youtube display--button ${toogle.active.youtube}`}
@@ -89,14 +90,13 @@ export default function Study() {
             <button
               className={`display__image display--button ${toogle.active.image} `}
               onClick={() => dispatch(actions.activeImage())}
-            >
-              Image
+            >Image
             </button>
           </div>
 
           {toogle.active.toogle === 'active' ? (
             <div className='display__content'>
-              <h1 className='font-weight-bold display-1'>Study</h1>
+              {/* <h1 className='font-weight-bold display-1'>Study</h1> */}
               <div>
                 <label
                   htmlFor='large-toggle'
@@ -214,7 +214,7 @@ export default function Study() {
               />
             </div>
           ) : null}
-          {showTimer ? (
+          {toogle.status ? (
             <>
               <Timer task={task} />
               <div className='coffe'>

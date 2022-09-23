@@ -1,6 +1,6 @@
 body {
-  /* background-color: #d95550; */
-  background-color: #000000;
+  background-color: #d95550;
+  /* background-color: #000000; */
   width: 70%;
   margin: auto;
 }
@@ -118,7 +118,8 @@ body {
   align-items: center;
 }
 nav {
-  background-color: #d95550;
+/* background-color: #d95550; */
+background-color: #000000;
 border-bottom: 1px solid rgb(114, 104, 104);
 }
 .headerStudy {

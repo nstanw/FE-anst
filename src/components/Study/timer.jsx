@@ -5,10 +5,13 @@ import { ApexChartActions } from '../../features/data/ApexChartSlice';
 import { actions } from '../../features/toogle/toogleSlice';
 import ApexChart from '../Report/ApexChart';
 import GoogleChar from '../Report/GoogleChar';
-
+import { taskAction } from '../../features/data/TaskSlice';
+import { postTask, getTask } from '../../features/data/TaskSlice';
 function Timer() {
   const props = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
+  const dataChart = useSelector((state) => state.task.apexChart);
+  const chartData = useSelector(state => state.task.task)
   const [selected, setSelected] = useState('8');
   const [title, setTitle] = useState('bee Study');
   const dispatch = useDispatch();
@@ -22,20 +25,22 @@ function Timer() {
           return preState - 1;
         }
       });
-    }, 1000);
+    }, 1);
     return (timerId) => {
       clearInterval(timerId);
     };
   }, []);
   useEffect(() => {
-    const minute =  Math.floor(countdown / 60);
-    const seconds =  countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`
+    const minute = Math.floor(countdown / 60);
+    const seconds =
+      countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
     const timerCountDown = `${minute} : ${seconds}`;
     document.title = timerCountDown;
-  },[countdown]);
+  }, [countdown]);
 
-  const minute =  Math.floor(countdown / 60);
-  const seconds =  countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`
+  const minute = Math.floor(countdown / 60);
+  const seconds =
+    countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
   const timerCountDown = `${minute} : ${seconds}`;
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +62,21 @@ function Timer() {
       skills: data.skills,
       notes: data.notes,
     };
-    dispatch(ApexChartActions.addColumChart(payloadApexChart));
+
+    const payloadTask = {
+      task: {
+        name: props.task.name,
+        countDown: props.task.countDown,
+      },
+      effective: data.effective,
+      skills: data.skills,
+      notes: data.notes,
+      labelsTime: new Date().toLocaleTimeString(),
+    };
+
+    // dispatch(ApexChartActions.addColumChart(payloadApexChart));
+    dispatch(postTask(payloadTask));
+    // dispatch(getTask());
     dispatch(actions.hidenFeedback());
     // dispatch(actions.mode());
   };
@@ -127,14 +146,21 @@ function Timer() {
           className='text-center'
         >
           {countdown > 0 ? (
-            <h1 className='countdown'
-            onChange={(e) => setTitle(timerCountDown)}
+            <h1
+              className='countdown'
+              onChange={(e) => setTitle(timerCountDown)}
             >
               {timerCountDown}
             </h1>
           ) : (
             <>
-              <div>{toogle.feedback ? <Feedback /> : <ApexChart />}</div>
+              <div>
+                {toogle.feedback ? (
+                  <Feedback />
+                ) : (
+                  <ApexChart chartData={chartData} />
+                )}
+              </div>
             </>
           )}
         </div>
