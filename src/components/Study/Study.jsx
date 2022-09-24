@@ -74,7 +74,7 @@ export default function Study() {
         <div className="text-center">
           <div className="display">
             <button
-              className={`display__toogle display--button ${toogle.active.toogle}`}
+              className={`display__toogle display--button textmeno ${toogle.active.toogle}`}
               onClick={() => {
                 dispatch(actions.activeToogle());
               }}
@@ -82,16 +82,16 @@ export default function Study() {
               Mode
             </button>
             <button
-              className={`display__youtube display--button ${toogle.active.youtube}`}
-              onClick={() => dispatch(actions.activeYoutube())}
-            >
-              Youtube
-            </button>
-            <button
-              className={`display__image display--button ${toogle.active.image} `}
+              className={`display__image display--button textmeno ${toogle.active.image} `}
               onClick={() => dispatch(actions.activeImage())}
             >
               Image
+            </button>
+            <button
+              className={`display__youtube display--button textmeno ${toogle.active.youtube}`}
+              onClick={() => dispatch(actions.activeYoutube())}
+            >
+              Youtube
             </button>
           </div>
 
@@ -113,7 +113,7 @@ export default function Study() {
                 </label>
                 <Toogle />
                 <div className="pt-6">
-                  <span>#Time to Focus</span>
+                  <span className="blueWight">#Time to Focus</span>
                 </div>
               </div>
             </div>
@@ -165,8 +165,29 @@ export default function Study() {
   function ShowImage() {
     return (
       <div className="ShowImage">
-        <div>
+        <div className="image">
           <img src="https://img.vietcetera.com/uploads/images/02-nov-2021/real-time-study-with-me-with-music-3-00-19-14-1613640165.jpg" />
+          <div class="dropdown">
+            <button
+              class="btnSave dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+            >
+             Thay đổi ảnh
+              
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">HTML</a>
+              </li>
+              <li>
+                <a href="#">CSS</a>
+              </li>
+              <li>
+                <a href="#">JavaScript</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );
@@ -237,7 +258,7 @@ export default function Study() {
                       onClick={() => dispatch(showTaskForm())}
                     >
                       <div className="p-3 container-taskDetail">
-                        <div className="taskName">
+                        <div className="taskName textmeno">
                           {task.task ? (
                             <span id="taskName"> {task.task}</span>
                           ) : (
@@ -245,7 +266,9 @@ export default function Study() {
                           )}
                         </div>
                         <div id="timeAndEdit">
-                          <div className="px-2 textmeno">{task.tomato} minutes</div>
+                          <div className="px-2 textmeno">
+                            {task.tomato} minutes
+                          </div>
                           <div className="taskEdit">
                             <img
                               id="changeSizeImg"

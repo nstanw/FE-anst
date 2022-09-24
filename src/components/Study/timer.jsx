@@ -96,16 +96,16 @@ function Timer() {
                   name='score'
                   id='score'
                 >
-                  <option value='1'>1(Không hài lòng)</option>
-                  <option value='2'>2(Không ăn thua)</option>
-                  <option value='3'>3(qua chuyện)</option>
-                  <option value='4'>4(Tàm tạm)</option>
-                  <option value='5'>5(Trung Bình)</option>
-                  <option value='6'>6(Vừa)</option>
-                  <option value='7'>7(Khá)</option>
-                  <option value='8'>8(Tốt)</option>
-                  <option value='9'>9(Hảo Hảo)</option>
-                  <option value='10'>10(Tuyệt vời)</option>
+                  <option value='1'>1 (Không hài lòng)</option>
+                  <option value='2'>2 (Không ăn thua)</option>
+                  <option value='3'>3 (qua chuyện)</option>
+                  <option value='4'>4 (Tàm tạm)</option>
+                  <option value='5'>5 (Trung Bình)</option>
+                  <option value='6'>6 (Vừa)</option>
+                  <option value='7'>7 (Khá)</option>
+                  <option value='8'>8 (Tốt)</option>
+                  <option value='9'>9 (Hảo Hảo)</option>
+                  <option value='10'>10 (Tuyệt vời)</option>
                 </select>
               </div>
               <div className='Form__texarena'>
