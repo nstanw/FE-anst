@@ -7,11 +7,12 @@ import ApexChart from '../Report/ApexChart';
 import GoogleChar from '../Report/GoogleChar';
 import { taskAction } from '../../features/data/TaskSlice';
 import { postTask, getTask } from '../../features/data/TaskSlice';
+import AIcom from '../Report/AIcom';
 function Timer() {
   const props = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
   const dataChart = useSelector((state) => state.task.apexChart);
-  const chartData = useSelector(state => state.task.task)
+  const taskState = useSelector((state) => state.task);
   const [selected, setSelected] = useState('8');
   const [title, setTitle] = useState('bee Study');
   const dispatch = useDispatch();
@@ -44,7 +45,6 @@ function Timer() {
   const timerCountDown = `${minute} : ${seconds}`;
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const data = {
       effective: parseInt(e.target[0].value),
       skills: e.target[1].value,
@@ -158,7 +158,16 @@ function Timer() {
                 {toogle.feedback ? (
                   <Feedback />
                 ) : (
-                  <ApexChart chartData={chartData} />
+                  <>
+                    {taskState.post.isLoading ? (
+                      <h1> loading</h1>
+                    ) : (
+                      <>
+                        <ApexChart chartData={taskState.chartData} />
+                        <AIcom chartData={taskState.chartData} />
+                      </>
+                    )}
+                  </>
                 )}
               </div>
             </>

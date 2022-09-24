@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { ApexChartActions } from '../../features/data/ApexChartSlice';
-function AIcom() {
-  const chartData = useSelector(state => state.task.chartData)
+import { BsFillEmojiLaughingFill } from 'react-icons/bs';
+import { BsFillCalculatorFill } from 'react-icons/bs';
+function AIcom(chartData) {
   const dispatch = useDispatch();
-  console.log('AIcom data: ', chartData);
-  const minutes = chartData.minutes;
-  const effective = chartData.effective;
+  console.log('AIcom data: ', chartData.chartData);
+  const minutes = chartData.chartData.minutes;
+  const effective = chartData.chartData.effective;
   const maxEffective = Math.max.apply(0, effective);
   const minEffective = Math.min.apply(0, effective);
   const maxMinute = Math.max.apply(0, minutes);
@@ -14,8 +15,8 @@ function AIcom() {
   const sumEffective = effective.reduce((sum, effective) => sum + effective, 0);
   const avgEffective = sumEffective / effective.length || 0;
   const avgMinute = sumMinute / minutes.length || 0;
-  const notes = chartData.notes;
-  const skills = chartData.skills;
+  const notes = chartData.chartData.notes;
+  const skills = chartData.chartData.skills;
 
   const dataAIcom = {
     sumMinute: sumMinute,
@@ -38,7 +39,8 @@ function AIcom() {
       >
         <div className='p-3 container-taskDetail'>
           <div className='taskName'>
-            <span id='taskName'>Báo cáo hôm nay</span>
+            <span id='taskName'>Báo cáo</span>
+          
           </div>
           <div id='timeAndEdit'>
             <div className='px-2'>{new Date().toDateString()}</div>
@@ -52,59 +54,30 @@ function AIcom() {
         </div>
         {true ? (
           <div className='row'>
-            <div className='AiCom__content col-lg-6 col-md-6 col-sm-12'>
+            <div className='AiCom__content col-lg-12 col-md-12 col-sm-12'>
               <ul>
-                <li>- tổng thời gian học : {dataAIcom.sumMinute}</li>
-                <li>
-                  - thời gian trung bình: {dataAIcom.avgMinute} (
-                  {minutes.length} phiên học)
+                <li> Hôm nay học được: {dataAIcom.sumMinute} phút.</li>
+                <li>                
+                  Trung bình mỗi phiên {dataAIcom.avgMinute} ({minutes.length}{' '}
+                  phiên học)
                 </li>
-                <li>- thời gian thấp nhất: {dataAIcom.minMinute}</li>
-                <li>- thời gian cao nhât: {dataAIcom.maxMinute}</li>
+                <li> Hiệu quả: {dataAIcom.avgEffective}</li>
               </ul>
             </div>
             <div className='AiCom__content col-lg-6 col-md-6 col-sm-12'>
-              <ul>
-                <li>- trung bình hài lòng: {dataAIcom.avgEffective}</li>
-                <li>- Điểm hài lòng nhất: {dataAIcom.maxEffective}</li>
-                <li>- Điểm hài lòng thấp nhất: {dataAIcom.minEffective} </li>
-              </ul>
-            </div>
-            <div className='AiCom__content col-lg-12 col-md-6 col-sm-12'>
               <ul>
                 <li>Đã học được:</li>
                 {dataAIcom.skills.map((skill, idx) => {
-                  return <ol key={idx}>-- {skill}</ol>;
-                })}
-
-                <li>Idie, cảm nhận: </li>
-                {dataAIcom.notes.map((note, idx) => {
-                  return <ol key={idx}>-- {note}</ol>;
+                  return <ol key={idx}>- {skill}</ol>;
                 })}
               </ul>
             </div>
-            <div className='AiCom__content col-12'>
+            <div className='AiCom__content col-lg-6 col-md-6 col-sm-12'>
               <ul>
-                <li>
-                  - khoảng thời gian tối ưu nhất để học là: số phút có mức hài
-                  lòng cao nhất
-                </li>
-                <li>
-                  - thời điểm hài lòng nhất: điểm hài lòng cao nhất - thời gian
-                </li>
-                <li>
-                  - kết luận: khoảnh thời gian tối ưu nhất cho việc học là : $
-                  phút buổi ?sáng thêm icon
-                </li>
-                <li>
-                  - bạn có xu hướng đạt hài lòng cao lúc: mới giữa sau khi học.
-                  hiệu quả hơn bao nhiêu %
-                </li>
-                <li>
-                  - khoảng thời gian thích hợp nhất cho bạn là: thời gian có
-                  hiệu quả cao nhất
-                </li>
-                <li></li>
+                <li>Idie, cảm nhận: </li>
+                {dataAIcom.notes.map((note, idx) => {
+                  return <ol key={idx}>- {note}</ol>;
+                })}
               </ul>
             </div>
           </div>

@@ -66,7 +66,7 @@ const TaskSlice = createSlice({
       state.task = state.task.concat(action.payload);
       state.post.isErr = false;
       state.post.isLoading = false;
-      state.postis.Susses = true;
+      state.post.isSusses = true;
     },
     [postTask.pending]: (state, action) => {
       state.post.isErr = false;
@@ -74,22 +74,25 @@ const TaskSlice = createSlice({
       state.isSusses = false;
     },
     [postTask.rejected]: (state, action) => {
-      state.isErr = true;
-      state.isLoading = false;
+      state.post.isErr = true;
+      state.post.isLoading = false;
       state.isSusses = false;
     },
     [getTask.fulfilled]: (state, action) => {
       state.chartData = action.payload;
+      state.get.isErr = false;
+      state.get.isLoading = false;
+      state.get.isSusses = true;
     },
     [getTask.pending]: (state, action) => {
-      state.isErr = false;
-      state.isLoading = true;
-      state.isSusses = false;
+      state.get.isErr = false;
+      state.get.isLoading = true;
+      state.get.isSusses = false;
     },
     [getTask.rejected]: (state, action) => {
-      state.isErr = true;
-      state.isLoading = false;
-      state.isSusses = false;
+      state.get.isErr = true;
+      state.get.isLoading = false;
+      state.get.isSusses = false;
     },
   },
 }); //

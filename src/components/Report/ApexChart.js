@@ -5,7 +5,7 @@ import AIcom from './AIcom';
 
 function ApexChart(chartData) {
  
-  console.log('chartData task:', chartData);
+  console.log('chartData task  send apex:', chartData);
 //   const chartData ={
 //     minutes: [],
 //     effective: [],
@@ -23,12 +23,12 @@ function ApexChart(chartData) {
       {
         name: 'Số phút',
         type: 'column',
-        data: chartData.minutes,
+        data:  chartData.chartData.minutes,
       },
       {
         name: 'hài lòng',
         type: 'line',
-        data: chartData.effective,
+        data:  chartData.chartData.effective,
       },
     ],
     options: {
@@ -50,7 +50,7 @@ function ApexChart(chartData) {
         enabled: true,
         enabledOnSeries: [],
       },
-      labels: chartData.labelsTime,
+      labels:  chartData.chartData.labelsTime,
       xaxis: {
         type: 'String',
       },
