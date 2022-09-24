@@ -4,6 +4,7 @@ import { BsFillEmojiLaughingFill } from 'react-icons/bs';
 import { BsFillCalculatorFill } from 'react-icons/bs';
 function AIcom(chartData) {
   const dispatch = useDispatch();
+  const isShowAICom = useSelector(state => state.apexChart.AIcom.report)
   console.log('AIcom data: ', chartData.chartData);
   const minutes = chartData.chartData.minutes;
   const effective = chartData.chartData.effective;
@@ -52,7 +53,7 @@ function AIcom(chartData) {
             </div>
           </div>
         </div>
-        {true ? (
+        {isShowAICom ? (
           <div className='row'>
             <div className='AiCom__content col-lg-12 col-md-12 col-sm-12'>
               <ul>

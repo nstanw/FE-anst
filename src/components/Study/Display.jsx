@@ -141,7 +141,8 @@ export default function Study() {
   function ShowImage() {
     return (
       <div className='ShowImage'>
-        <img src='std.jpg' />
+        <img src="https://img.vietcetera.com/uploads/images/02-nov-2021/real-time-study-with-me-with-music-3-00-19-14-1613640165.jpg" alt="" />
+        {/* <img src='std.jpg' /> */}
       </div>
     );
   }
@@ -157,7 +158,7 @@ export default function Study() {
         <div className=''>
           <iframe
             width='100%'
-            height='315'
+            height='100%'
             src={`https://www.youtube.com/embed/${youtubeId}${autoplay}`}
             title='YouTube video player'
             frameBorder='0'
