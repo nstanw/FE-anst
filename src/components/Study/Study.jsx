@@ -7,6 +7,7 @@ import { actions } from "../../features/toogle/toogleSlice";
 import { ggChart } from "../../features/data/GoogleCharSlice";
 import { useNavigate } from "react-router-dom";
 import { getTask } from "../../features/data/TaskSlice";
+import ShowModal from "./ShowModal";
 
 export default function Study() {
   const dispatch = useDispatch();
@@ -165,6 +166,7 @@ export default function Study() {
   function ShowImage() {
     return (
       <div className="ShowImage">
+       
         <div className="image">
           <img src="https://img.vietcetera.com/uploads/images/02-nov-2021/real-time-study-with-me-with-music-3-00-19-14-1613640165.jpg" />
           <div class="dropdown">
@@ -173,18 +175,20 @@ export default function Study() {
               type="button"
               data-toggle="dropdown"
             >
-             Thay đổi ảnh
-              
+              Thay đổi ảnh
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">HTML</a>
+               
+                <ShowModal/>
               </li>
               <li>
                 <a href="#">CSS</a>
               </li>
               <li>
                 <a href="#">JavaScript</a>
+              </li>
+              <li>
               </li>
             </ul>
           </div>
