@@ -19,6 +19,9 @@ const ToogleSlice = createSlice({
       link: 'https://www.youtube.com/watch?v=fn1YBnSgva0&ab_channel=jawonee',
       autoplay: false,
     },
+    image: {
+      link: '',
+    }
   },
   reducers: {
     reset: (state, action) => {
@@ -55,6 +58,9 @@ const ToogleSlice = createSlice({
     linkYoutube: (state, action) => {
       state.youtube.link = action.payload.link;
       state.youtube.autoplay = action.payload.autoplay;
+    },
+    changeImage: (state,action) =>{
+      state.image = action.payload;
     },
   },
 });

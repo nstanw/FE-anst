@@ -4,6 +4,10 @@ body {
   width: 70%;
   margin: auto;
 }
+.image{
+  width: 100%;
+  height: auto;
+}
 .study {
   padding: 0px 12px;
   max-width: 620px;
@@ -248,7 +252,7 @@ border-bottom: 1px solid rgb(114, 104, 104);
   display: inline-block;
 }
 ::placeholder {
-  padding-left: 40px;
+  padding-left: 20px;
 }
 .apexcharts-toolbar {
   display: block;
