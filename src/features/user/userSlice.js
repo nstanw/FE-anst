@@ -11,6 +11,17 @@ export const getUserAPI = createAsyncThunk('GET_User',
     return rejectWithValue(err.response.data);
   }
 });
+export const postUserAPI = createAsyncThunk('POST_User',
+ async (img) => {
+  try {
+    const url = 'http://localhost:3333/postavatar';
+    const Respose = await axios.post(url, img);
+    console.log('Respose postUserAPI:', Respose.data);
+    return Respose.data;
+  } catch (error) {
+    return rejectWithValue(err.response.data);
+  }
+});
 const initialState = {
   image: 'a',
   video: 'a',
@@ -38,6 +49,23 @@ const UserSlice = createSlice({
         state.get.isErr = true;
         state.get.isLoading = false;
         state.get.isSusses = false;
+    },
+    [postUserAPI.pending]: (state, action) => {
+     state.post.isErr = false;
+      state.post.isLoading = true;
+      state.post.isSusses = false;
+    },
+    [postUserAPI.fulfilled]: (state, action) => {
+      state.image = action.payload.image;
+      state.video = action.payload.video;
+      state.post.isErr = false;
+      state.post.isLoading = false;
+      state.post.isSusses = true;
+    },
+    [postUserAPI.rejected]: (state, action) => {
+        state.post.isErr = true;
+        state.post.isLoading = false;
+        state.post.isSusses = false;
     },
   }, //
 });

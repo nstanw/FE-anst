@@ -3,10 +3,9 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { actions } from '../../features/toogle/toogleSlice';
-import { getUserAPI } from '../../features/user/userSlice';
+import { getUserAPI,postUserAPI } from '../../features/user/userSlice';
 function ShowModal(props) {
   const user = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [link, setlink] = useState('');
@@ -15,8 +14,10 @@ function ShowModal(props) {
     setShow(!show);
   };
   const handleChangeImage = () => {
-    console.log('link:', link);                                                                             
-    dispatch(actions.changeImage(link));
+    console.log('link:', link);             
+
+    dispatch(postUserAPI(link));
+    // dispatch(actions.changeImage(link));
     dispatch(getUserAPI());
 
   };
