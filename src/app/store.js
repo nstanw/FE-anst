@@ -10,6 +10,7 @@ import toogleReducer from '../features/toogle/toogleSlice';
 import chartReducer from '../features/data/GoogleCharSlice';
 import apexChartReducer from '../features/data/ApexChartSlice';
 import taskReducer from '../features/data/TaskSlice';
+import userReducer from '../features/user/userSlice'
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   chart: chartReducer,
   apexChart: apexChartReducer,
   task: taskReducer,
+  user: userReducer,
 });
 
 export const store = configureStore({

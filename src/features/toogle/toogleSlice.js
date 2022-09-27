@@ -62,6 +62,7 @@ const ToogleSlice = createSlice({
     changeImage: (state,action) =>{
       state.image = action.payload;
     },
+    
   },
 });
 

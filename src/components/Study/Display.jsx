@@ -75,7 +75,7 @@ export default function Study() {
             <div className='display__content'>
               <h1 className='font-weight-bold display-1'>Study</h1>
               <div>
-                <label
+                {/* <label
                   htmlFor='large-toggle'
                   className='inline-flex relative items-center cursor-pointer'
                 >
@@ -86,7 +86,7 @@ export default function Study() {
                     // checked
                     className='sr-only peer'
                   />
-                </label>
+                </label> */}
                 <Toogle />
                 <div className='pt-6'>
                   <span>#Time to Focus</span>

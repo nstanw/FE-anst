@@ -7,6 +7,7 @@ import { actions } from '../../features/toogle/toogleSlice';
 import { ggChart } from '../../features/data/GoogleCharSlice';
 import { useNavigate } from 'react-router-dom';
 import { getTask } from '../../features/data/TaskSlice';
+import { getUserAPI } from '../../features/user/userSlice';
 import ShowModal from './ShowModal';
 
 export default function Study() {
@@ -14,9 +15,11 @@ export default function Study() {
   const navigate = useNavigate();
   const study = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     toogle.status ? null : dispatch(actions.reset());
     dispatch(getTask());
+    dispatch(getUserAPI());
   }, [toogle.status]);
 
   console.log('study', study);
@@ -34,14 +37,6 @@ export default function Study() {
     };
     setTask(newState);
   };
-
-  // const inputsHandler = (e) => {
-  //   const newState = {
-  //     ...task,
-  //     [e.target.name]: e.target.value,
-  //   };
-  //   setTask(newState);
-  // };
 
   const hideTimer = () => {
     setShowTimer(!showTimer);
@@ -67,6 +62,11 @@ export default function Study() {
       tomato: task.tomato === 0 ? 0 : task.tomato - 25,
     });
   };
+  const link  = {
+    image: user.image,
+    video: user.video,
+  };
+
   const StudyAndMode = () => {
     return (
       <>
@@ -84,13 +84,17 @@ export default function Study() {
             </button>
             <button
               className={`display__image display--button textmeno ${toogle.active.image} `}
-              onClick={() => dispatch(actions.activeImage())}
+              onClick={() => {
+                dispatch(actions.activeImage());
+              }}
             >
               Image
             </button>
             <button
               className={`display__youtube display--button textmeno ${toogle.active.youtube}`}
-              onClick={() => dispatch(actions.activeYoutube())}
+              onClick={() => {
+                dispatch(actions.activeYoutube());            
+              }}
             >
               Youtube
             </button>
@@ -100,7 +104,7 @@ export default function Study() {
             <div className='display__content'>
               {/* <h1 className='font-weight-bold display-1'>Study</h1> */}
               <div>
-                <label
+                {/* <label
                   htmlFor='large-toggle'
                   className='inline-flex relative items-center cursor-pointer'
                 >
@@ -111,7 +115,7 @@ export default function Study() {
                     // checked
                     className='sr-only peer'
                   />
-                </label>
+                </label> */}
                 <Toogle />
                 <div className='pt-6'>
                   <span className='blueWight'>#Time to Focus</span>
@@ -124,7 +128,7 @@ export default function Study() {
             <div className='display__content'>
               <div className='display__content--padding'>
                 <Youtube
-                  link={toogle.youtube.link}
+                  url={toogle.youtube.link}
                   autoplay={toogle.youtube.autoplay}
                 />
                 <div className='display__content__form'></div>
@@ -135,7 +139,9 @@ export default function Study() {
           {toogle.active.image === 'active' ? (
             <div className='display__content'>
               <div className='display__content--padding'>
-                <ShowImage />
+                {user.get.isLoading ? ( <h1>loading... </h1> )
+                :(  <ShowImage />)}
+              
               </div>
               <div className='display__content__form'></div>
             </div>
@@ -163,16 +169,13 @@ export default function Study() {
       </div>
     );
   };
+
   function ShowImage() {
     return (
       <div className='ShowImage'>
         <div className='image'>
-          {console.log('toogle.image', toogle.image)}
-          {toogle.image.link === '' ? (
-            <img src="https://netviethuman.com/wp-content/uploads/2021/07/study-la-gi-1-e1625197208615.jpg" />
-          ) : (
-            <img src={toogle.image} />
-          )}
+          {console.log('link.image',link.image)}         
+            <img src={link.image} />  
           <div class='dropdown'>
             <button
               class='btnSave dropdown-toggle'
@@ -183,15 +186,8 @@ export default function Study() {
             </button>
             <ul class='dropdown-menu'>
               <li>
-                <ShowModal />
-              </li>
-              <li>
-              Upload(comingsoon)
-              </li>
-              <li>
-               Reset(comingsoon)
-              </li>
-              <li></li>
+                <ShowModal  />
+            </li>
             </ul>
           </div>
         </div>
@@ -199,12 +195,12 @@ export default function Study() {
     );
   }
   const Youtube = ({
-    link = 'https://www.youtube.com/watch?v=ZEbCz7B2-Eg&ab_channel=MariaSilva',
+    url = link.video,
     autoplay,
   }) => {
     autoplay ? (autoplay = '?autoplay=1') : (autoplay = '');
-    const youtubeId = link.split('watch?v=')[1].split('&')[0];
-    console.log(youtubeId);
+    const youtubeId = url.split('watch?v=')[1].split('&')[0];
+    console.log(link.video);
     return (
       <div className='youtube row'>
         <div className=''>

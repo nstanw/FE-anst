@@ -1,6 +1,7 @@
 .modeCSS {
   text-align: center;
   display: flex;
+  padding: 10%;
 }
 .toogle {
   height: 100px;

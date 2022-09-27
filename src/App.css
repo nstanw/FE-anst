@@ -3,10 +3,21 @@ body {
   background-color: #55efc4;
   width: 70%;
   margin: auto;
+  text-decoration: none;
 }
-.image{
+img {
   width: 100%;
   height: auto;
+} 
+.textmeno {
+  font-size: 22px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: #0abde3;
+}
+a {
+  text-decoration: none;
 }
 .study {
   padding: 0px 12px;
@@ -43,7 +54,19 @@ body {
   align-items: center;
   color: white;
 }
-
+.display--button{
+   margin: 0px;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 28px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.15) none repeat scroll 0% 0%;
+  box-shadow: none;
+  color: white;
+  opacity: 1;
+  padding: 2px 12px;
+  border: medium none;
+}
 .active,
 .display--button:hover {
   margin: 0px;
@@ -53,7 +76,7 @@ body {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.15) none repeat scroll 0% 0%;
   box-shadow: none;
-  color: white;
+  color: rgb(10, 188, 161);
   opacity: 1;
   font-weight: bold;
   padding: 2px 12px;
@@ -269,13 +292,7 @@ border-bottom: 1px solid rgb(114, 104, 104);
   font-weight: 800;
   color: #ffffff;
 }
-.textmeno {
-  font-size: 22px;
-  line-height: 24px;
-  letter-spacing: 1px;
-  font-weight: 800;
-  color: #0abde3;
-}
+
 
 .blueWight {
   font-size: 24px;
@@ -285,6 +302,9 @@ border-bottom: 1px solid rgb(114, 104, 104);
    color: #ffffff;
 }
 .image{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
 }
 .dropdown{
