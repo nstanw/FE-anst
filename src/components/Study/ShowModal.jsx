@@ -15,11 +15,8 @@ function ShowModal(props) {
   };
   const handleChangeImage = () => {
     console.log('link:', link);             
-
-    dispatch(postUserAPI(link));
+    dispatch(postUserAPI({image : link}));
     // dispatch(actions.changeImage(link));
-    dispatch(getUserAPI());
-
   };
 
   return (

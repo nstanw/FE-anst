@@ -32,6 +32,28 @@ function AIcom(chartData) {
     skills: skills,
   };
 
+  const arrRow = [notes, skills];
+  const Table = () => {
+    return (
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            {/* <th>Time</th> */}
+            <th>Skills</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {arrRow[1].map((row) => {
+            <td>{row}</td>;
+          })}
+          {arrRow[0].map((row) => {
+            <td>{row}</td>;
+          })}
+        </tbody>
+      </table>
+    );
+  };
   return (
     <div className="AiCom ">
       <div
@@ -61,33 +83,33 @@ function AIcom(chartData) {
                 </tr>
               </thead>
               <tbody>
-          
-                    <tr>
-                      <th scope="row">0</th>
-                      <td>{dataAIcom.sumMinute} phút</td>
-                      <td>{minutes.length}</td>
-                      <td>{dataAIcom.avgEffective}</td>
-                    </tr>
-              
+                <tr>
+                  <th scope="row">0</th>
+                  <td>{dataAIcom.sumMinute} phút</td>
+                  <td>{minutes.length}</td>
+                  <td>{dataAIcom.avgEffective}</td>
+                </tr>
               </tbody>
             </table>
-
-            <div className="AiCom__content col-lg-6 col-md-6 col-sm-12">
-              <ul>
-                <li>Đã học được:</li>
-                {dataAIcom.skills.map((skill, idx) => {
-                  return <ol key={idx}>- {skill}</ol>;
+            {/* 00000000000 */}
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  {/* <th>Time</th> */}
+                  <th>Skills</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {console.log(arrRow)}
+                {arrRow[1].map((row) => {
+                  <td>{row}</td>
                 })}
-              </ul>
-            </div>
-            <div className="AiCom__content col-lg-6 col-md-6 col-sm-12">
-              <ul>
-                <li>Idie, cảm nhận: </li>
-                {dataAIcom.notes.map((note, idx) => {
-                  return <ol key={idx}>- {note}</ol>;
+                {arrRow[0].map((row) => {
+                  <td>{row}</td>
                 })}
-              </ul>
-            </div>
+              </tbody>
+            </table>
           </div>
         ) : null}
       </div>
