@@ -177,7 +177,6 @@ export default function Study() {
     return (
       <div className="ShowImage">
         <div className="image">
-          {console.log("link.image", link.image)}
           {<img src={link.image} />}
           <div class="dropdown">
             <button
@@ -189,7 +188,7 @@ export default function Study() {
             </button>
             <ul class="dropdown-menu">
               <li>
-                <ShowModal />
+                <ShowModal youtube={false} image={true}/>
               </li>
             </ul>
           </div>
@@ -203,7 +202,7 @@ export default function Study() {
     console.log(link.video);
     return (
       <div className="youtube row">
-        <div className="">
+        <div className="image">
           <iframe
             width="100%"
             height="315"
@@ -213,6 +212,20 @@ export default function Study() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
+              <div class="dropdown">
+            <button
+              class="btnSave dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+            >
+             Change Video
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <ShowModal youtube={true} image={false}/>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );

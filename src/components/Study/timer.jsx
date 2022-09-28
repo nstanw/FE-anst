@@ -91,8 +91,7 @@ function Timer() {
               </div>
               <div className='py-2'>
                 <select
-                  value={selected}
-                  onChange={(e) => setSelected(e.target.value)}
+                 
                   name='score'
                   id='score'
                 >
@@ -103,7 +102,7 @@ function Timer() {
                   <option value='5'>5 (Trung Bình)</option>
                   <option value='6'>6 (Vừa)</option>
                   <option value='7'>7 (Khá)</option>
-                  <option value='8'>8 (Tốt)</option>
+                  <option selected value='8'>8 (Tốt)</option>
                   <option value='9'>9 (Hảo Hảo)</option>
                   <option value='10'>10 (Tuyệt vời)</option>
                 </select>

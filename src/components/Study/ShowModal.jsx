@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { actions } from '../../features/toogle/toogleSlice';
-import { getUserAPI,postUserAPI } from '../../features/user/userSlice';
+import { getUserAPI, postUserAPI } from '../../features/user/userSlice';
 function ShowModal(props) {
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [link, setlink] = useState('');
@@ -14,8 +13,19 @@ function ShowModal(props) {
     setShow(!show);
   };
   const handleChangeImage = () => {
-    console.log('link:', link);             
-    dispatch(postUserAPI({image : link}));
+    console.log('link:', link);
+    console.log('props:', props);
+    if (props.image) {
+      dispatch(postUserAPI({ image: link }))
+        .then(() => dispatch(getUserAPI()))
+        .catch(console.error(err));
+    }
+    if (props.video) {
+      dispatch(postLinkVideo({ video: link }))
+        .then(() => dispatch(getUserAPI()))
+        .catch(console.error(err));
+    }
+
     // dispatch(actions.changeImage(link));
   };
 
@@ -44,10 +54,11 @@ function ShowModal(props) {
         <ModalFooter>
           <Button
             className='btnSave'
-            onClick={handleChangeImage}
+            onClick={toggle}
+            onChange= {handleChangeImage}
           >
             Save
-          </Button>{' '}
+          </Button>
           <Button
             className='btnSave'
             onClick={toggle}
