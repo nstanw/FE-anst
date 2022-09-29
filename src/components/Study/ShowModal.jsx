@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { actions } from '../../features/toogle/toogleSlice';
-import { getUserAPI, postUserAPI } from '../../features/user/userSlice';
+import { postAvatar, postLinkVideo , getUserAPI} from '../../features/user/userSlice';
 function ShowModal(props) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -16,27 +16,26 @@ function ShowModal(props) {
     console.log('link:', link);
     console.log('props:', props);
     if (props.image) {
-      dispatch(postUserAPI({ image: link }))
+      dispatch(postAvatar({ image: link }))
         .then(() => dispatch(getUserAPI()))
-        .catch(console.error(err));
+        .catch(err => console.error(err));
     }
-    if (props.video) {
+    if (props.youtube) {
       dispatch(postLinkVideo({ video: link }))
         .then(() => dispatch(getUserAPI()))
-        .catch(console.error(err));
+        .catch(err => console.error(err));
     }
 
     // dispatch(actions.changeImage(link));
   };
-
   return (
     <div>
-      <Button
-        className='btnSave'
+      <span
+        className='btnWhite'
         onClick={toggle}
       >
         Nhập link...
-      </Button>
+      </span>
       <Modal
         isOpen={show}
         toggle={toggle}
@@ -54,8 +53,8 @@ function ShowModal(props) {
         <ModalFooter>
           <Button
             className='btnSave'
-            onClick={toggle}
-            onChange= {handleChangeImage}
+            onClick= {handleChangeImage}
+            // onClick={toggle}
           >
             Save
           </Button>

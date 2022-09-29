@@ -1,4 +1,5 @@
 import React from 'react';
+import './header.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../features/toogle/toogleSlice';
@@ -13,12 +14,16 @@ export default function Navbar({ fixed }) {
   return (
     <div className='headerStudy'>
       <nav class='navbar navbar-expand-lg'>
-        <Link
-          className='text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-white'
-          to='/'
-        >
-          <span onClick={() => dispatch(actions.reset())}>BEE STUDY</span>
-        </Link>
+        <div>
+          <Link to='/'>
+            <span
+              className='heading'
+              onClick={() => dispatch(actions.reset())}
+            >
+              BEE STUDY
+            </span>
+          </Link>
+        </div>
         <button
           class='navbar-toggler'
           type='button'
@@ -37,22 +42,23 @@ export default function Navbar({ fixed }) {
         >
           <ul class='navbar-nav mr-auto'>
             <li class='nav-item'>
-            <Link
-                  className="px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75"
-                  to="/report"
-                >
-                  <BsFillBarChartFill /> <span className="ml-2">Report</span>
-                </Link>
+              <Link
+                className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
+                to='/report'
+              >
+                <BsFillBarChartFill />{' '}
+                <span className='ml-2 heading__sub'>Report</span>
+              </Link>
             </li>
             <li class='nav-item'>
-            <Link
-                  className="px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75"
-                  to="result"
-                >
-                  <BsFillCalculatorFill /> <span className="ml-2">Result</span>
-                </Link>
+              <Link
+                className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
+                to='result'
+              >
+                <BsFillCalculatorFill />{' '}
+                <span className='ml-2 heading__sub'>Result</span>
+              </Link>
             </li>
-
           </ul>
         </div>
       </nav>

@@ -1,0 +1,39 @@
+#spanBaoCao{
+    color: black;
+}
+.tableResults{
+    background-color: azure;
+    border-radius: 5px;
+    padding: 0px 15px;
+
+}
+.report{
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+}
+.AiCom {
+    margin-top: 10px;
+}
+
+.report__Show{
+}
+
+.report__overview--show{
+background-color: rgba(230, 187, 230, 0.762);
+padding: 15px;
+margin: 3px 2px;
+}
+.sumary__{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-top: 28px;
+    margin-bottom: 28px;
+}
+.activitySum{
+    background-color: white;
+    padding-right: 12px;
+    font-weight: bold;
+    color: rgb(87, 87, 87);
+    font-size: 18px;  
+}

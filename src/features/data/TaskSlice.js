@@ -24,24 +24,26 @@ export const getTask = createAsyncThunk('Task/getTask', async () => {
   const data = await response.json();
   console.log('getTask:', data);
 
-  const chartDay = {
-    minutes: [],
-    effective: [],
-    labelsTime: [],
-    notes: [],
-    skills: [],
-  };
+  // const chartDay = {
+  //   minutes: [],
+  //   effective: [],
+  //   labelsTime: [],
+  //   notes: [],
+  //   skills: [],
+  //   create: [],
+  // };
 
-  data.map((x) => {
-    chartDay.minutes = [...chartDay.minutes, x.task.countDown];
-    chartDay.effective = [...chartDay.effective, x.effective];
-    chartDay.labelsTime = [...chartDay.labelsTime, x.labelsTime];
-    chartDay.notes = [...chartDay.notes, x.notes];
-    chartDay.skills = [...chartDay.skills, x.skills];
-  });
-  console.log('ojb data getTask: ', chartDay);
+  // data.map((x) => {
+  //   chartDay.minutes = [...chartDay.minutes, x.task.countDown];
+  //   chartDay.effective = [...chartDay.effective, x.effective];
+  //   chartDay.labelsTime = [...chartDay.labelsTime, x.labelsTime];
+  //   chartDay.notes = [...chartDay.notes, x.notes];
+  //   chartDay.skills = [...chartDay.skills, x.skills];
+  //   chartDay.create = [...chartDay.create, x.createdAt];
+  // });
+  // console.log('ojb data getTask: ', chartDay);
 
-  return chartDay;
+  return data;
 });
 
 const initialState = {
@@ -52,7 +54,7 @@ const initialState = {
     name,
   },
   task: [],
-  chartData: {},
+  chartData: [],
   post: { isErr: false, isLoading: true, isSusses: false },
   get: { isErr: false, isLoading: true, isSusses: false },
 };
@@ -79,6 +81,7 @@ const TaskSlice = createSlice({
       state.isSusses = false;
     },
     [getTask.fulfilled]: (state, action) => {
+      state.chartData = action.payload;
       state.chartData = action.payload;
       state.get.isErr = false;
       state.get.isLoading = false;

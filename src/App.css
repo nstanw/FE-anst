@@ -1,6 +1,7 @@
 body {
   /* background-color: #d95550; */
-  background-color: #55efc4;
+  box-sizing: border-box;
+  background-color:#3ae374;
   width: 70%;
   margin: auto;
   text-decoration: none;
@@ -271,6 +272,35 @@ border-bottom: 1px solid rgb(114, 104, 104);
   padding: 8px 12px;
   min-width: 70px;
   background-color: #0abde3;
+  border: none;
+  display: inline-block;
+}
+.btnSimple {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 2px;
+  color: rgb(0, 0, 0);
+  opacity: 0.9;
+  font-size: 14px;
+  padding: 8px 12px;
+  min-width: 70px;
+  background-color:#97e1c8;
+  border: none;
+  display: inline-block;
+}
+.btnWhite {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  opacity: 0.9;
+  font-size: 14px;
+  padding: 8px 12px;
+  min-width: 70px;
+  background-color:#ffffff;
   border: none;
   display: inline-block;
 }

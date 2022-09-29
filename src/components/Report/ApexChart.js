@@ -4,36 +4,61 @@ import { useSelector } from 'react-redux';
 import AIcom from './AIcom';
 
 function ApexChart(chartData) {
- 
-  console.log('chartData task  send apex:', chartData);
-//   const chartData ={
-//     minutes: [],
-//     effective: [],
-//     labelsTime:[],
+    const dataRenderChart = chartData.chartData.chartData;
+    console.log('chartData send apex:', chartData.chartData.chartData);
 
-//   };
-//  const a =  chartData.map(x => {
-//     chartData.minutes = [... chartData.minutes ,x.task.countDown]
-//     chartData.effective = [... chartData.effective ,x.effective]
-//     chartData.labelsTime = [... chartData.labelsTime ,x.labelsTime]
-//   })
-//   console.log(chartData);
+    // filter task toDay
+    const now = new Date().toLocaleDateString();
+    const toDay = dataRenderChart.filter((task) => {
+      const taskTime = new Date(task.updatedAt).toLocaleDateString();
+      return now == taskTime;
+    });
+    console.log(toDay);
+    //consvertCreated to date
+    const consvertCreated = (createdAt) => {
+      const time12h = new Date(createdAt).toLocaleTimeString('en-GB');
+      const formmat24h = time12h.split(':')[0] + ':' + time12h.split(':')[1];
+      return formmat24h;
+    };
+    const chartDay = {
+      minutes: [],
+      effective: [],
+      labelsTime: [],
+      notes: [],
+      skills: [],
+      createdAt: [],
+    };
+
+    toDay.map((x) => {
+      chartDay.minutes = [...chartDay.minutes, x.task.countDown];
+      chartDay.effective = [...chartDay.effective, x.effective];
+      chartDay.labelsTime = [...chartDay.labelsTime, x.labelsTime];
+      chartDay.notes = [...chartDay.notes, x.notes];
+      chartDay.skills = [...chartDay.skills, x.skills];
+      chartDay.createdAt = [
+        ...chartDay.createdAt,
+        consvertCreated(x.createdAt),
+      ];
+    });
+    // consvert createdAt to 24h hh:mm format
+    console.log('toDay: ', chartDay);
+    
   const data = {
     series: [
       {
         name: 'Số phút',
         type: 'column',
-        data:  chartData.chartData.minutes,
+        data: chartDay.minutes,
       },
       {
         name: 'hài lòng',
         type: 'line',
-        data:  chartData.chartData.effective,
+        data: chartDay.effective,
       },
     ],
     options: {
       theme: {
-        palette: 'palette1' // upto palette10
+        palette: 'palette1', // upto palette10
       },
       chart: {
         height: 350,
@@ -45,12 +70,12 @@ function ApexChart(chartData) {
       title: {
         text: chartData.name,
       },
+      colors: ['#a3d769', '#ff0000'],
       dataLabels: {
-
         enabled: true,
-        enabledOnSeries: [],
+        // enabledOnSeries: [1],
       },
-      labels:  chartData.chartData.labelsTime,
+      labels: chartDay.createdAt,
       xaxis: {
         type: 'String',
       },
@@ -61,7 +86,6 @@ function ApexChart(chartData) {
           },
         },
         {
-         
           opposite: true,
           title: {
             text: 'hài lòng',
@@ -80,7 +104,7 @@ function ApexChart(chartData) {
           type='line'
           height={350}
         />
-      {/* <AIcom /> */}
+        {/* <AIcom /> */}
       </div>
     </div>
   );

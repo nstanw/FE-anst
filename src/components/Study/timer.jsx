@@ -27,10 +27,11 @@ function Timer() {
         }
       });
     }, 1);
-    return (timerId) => {
+    return () => {
       clearInterval(timerId);
     };
   }, []);
+
   useEffect(() => {
     const minute = Math.floor(countdown / 60);
     const seconds =
@@ -75,7 +76,7 @@ function Timer() {
     };
 
     // dispatch(ApexChartActions.addColumChart(payloadApexChart));
-    dispatch(postTask(payloadTask));
+    dispatch(postTask(payloadTask)).then(() => dispatch(getTask()));
     // dispatch(getTask());
     dispatch(actions.hidenFeedback());
     // dispatch(actions.mode());
@@ -91,7 +92,6 @@ function Timer() {
               </div>
               <div className='py-2'>
                 <select
-                 
                   name='score'
                   id='score'
                 >
@@ -102,7 +102,12 @@ function Timer() {
                   <option value='5'>5 (Trung Bình)</option>
                   <option value='6'>6 (Vừa)</option>
                   <option value='7'>7 (Khá)</option>
-                  <option selected value='8'>8 (Tốt)</option>
+                  <option
+                    selected
+                    value='8'
+                  >
+                    8 (Tốt)
+                  </option>
                   <option value='9'>9 (Hảo Hảo)</option>
                   <option value='10'>10 (Tuyệt vời)</option>
                 </select>
@@ -162,12 +167,19 @@ function Timer() {
                       <h1> loading</h1>
                     ) : (
                       <>
-                        <ApexChart chartData={taskState.chartData} />
-                        <AIcom chartData={taskState.chartData} />
+                        <div className='relax'>
+                          <h5>Relax...</h5>
+                        <button className='btnSimple'>  5 phút</button>
+                        <button  className='btnSimple'>15 phút</button>
+                        <button  className='btnSimple'>30 phút</button>
+                        </div>
+                        <ApexChart chartData={taskState} />
+                        <AIcom chartData={taskState} />
                       </>
                     )}
                   </>
                 )}
+                {taskState.post.isErr && <h1>ERR</h1>}
               </div>
             </>
           )}

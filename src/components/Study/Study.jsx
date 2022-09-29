@@ -22,11 +22,11 @@ export default function Study() {
     dispatch(getUserAPI());
   }, [toogle.status]);
   useEffect(() => {
-    if (user.post.isSusses) 
-    {
       dispatch(getUserAPI());
-    }
-  }, []);
+  },[user.image]);
+  useEffect(() => {
+      dispatch(getUserAPI());
+  },[user.video]);
   console.log("study", study);
   const [toggled, setToggled] = React.useState(false);
   const [showTimer, setShowTimer] = React.useState(false);
@@ -68,8 +68,8 @@ export default function Study() {
     });
   };
   const link = {
-    image: user.image,
-    video: user.video,
+    image: user.image.link,
+    video: user.video.link,
   };
 
   const StudyAndMode = () => {
@@ -109,18 +109,6 @@ export default function Study() {
             <div className="display__content">
               {/* <h1 className='font-weight-bold display-1'>Study</h1> */}
               <div>
-                {/* <label
-                  htmlFor='large-toggle'
-                  className='inline-flex relative items-center cursor-pointer'
-                >
-                  <input
-                    type='checkbox'
-                    value=''
-                    id='large-toggle'
-                    // checked
-                    className='sr-only peer'
-                  />
-                </label> */}
                 <Toogle />
                 <div className="pt-6">
                   <span className="blueWight">#Time to Focus</span>
@@ -133,7 +121,7 @@ export default function Study() {
             <div className="display__content">
               <div className="display__content--padding">
                 <Youtube
-                  url={toogle.youtube.link}
+                  url={link.video}
                   autoplay={toogle.youtube.autoplay}
                 />
                 <div className="display__content__form"></div>
@@ -144,7 +132,9 @@ export default function Study() {
           {toogle.active.image === "active" ? (
             <div className="display__content">
               <div className="display__content--padding">
-                {user.get.isLoading ? <h1>loading... </h1> : <ShowImage />}
+             { user.get.isSusses && <ShowImage />}
+             { user.get.isLoading && <h1>Loading...</h1>}
+             { user.get.isErr && <h1>err</h1>}
               </div>
               <div className="display__content__form"></div>
             </div>
@@ -177,10 +167,10 @@ export default function Study() {
     return (
       <div className="ShowImage">
         <div className="image">
-          {<img src={link.image} />}
+          <img src={link.image} />
           <div class="dropdown">
             <button
-              class="btnSave dropdown-toggle"
+              class="btnSimple dropdown-toggle"
               type="button"
               data-toggle="dropdown"
             >
@@ -188,7 +178,7 @@ export default function Study() {
             </button>
             <ul class="dropdown-menu">
               <li>
-                <ShowModal youtube={false} image={true}/>
+                <ShowModal image={true}/>
               </li>
             </ul>
           </div>
@@ -198,8 +188,17 @@ export default function Study() {
   }
   const Youtube = ({ url = link.video, autoplay }) => {
     autoplay ? (autoplay = "?autoplay=1") : (autoplay = "");
-    const youtubeId = url.split("watch?v=")[1].split("&")[0];
-    console.log(link.video);
+    const checkLinkFull =  url.includes("watch?v=");
+    const checkLinkSort =  url.includes("youtu.be/");
+    let youtubeId = ''
+    if (checkLinkFull) {
+        youtubeId = url.split("watch?v=")[1].split("&")[0];
+        console.log(youtubeId);
+    }
+    if (checkLinkSort) {
+       youtubeId = url.split("youtu.be/")[1].split("&")[0];
+       console.log(youtubeId);
+    }
     return (
       <div className="youtube row">
         <div className="image">
@@ -214,7 +213,7 @@ export default function Study() {
           ></iframe>
               <div class="dropdown">
             <button
-              class="btnSave dropdown-toggle"
+              class="btnSimple dropdown-toggle"
               type="button"
               data-toggle="dropdown"
             >
