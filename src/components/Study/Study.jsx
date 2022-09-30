@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { getTask } from "../../features/data/TaskSlice";
 import users, { getUserAPI } from "../../features/user/userSlice";
 import ShowModal from "./ShowModal";
+import Countdown from "./Countdown";
 
 export default function Study() {
   const dispatch = useDispatch();
@@ -159,6 +160,18 @@ export default function Study() {
         >
           <div className="notch"></div>
         </div>
+        {!toogle.status  && (
+        <audio
+          // ref='audio_tag'
+          autoPlay={true}
+          controls={false}
+        >
+          <source
+            type='audio/mp3'
+            src='audio/apple_watch.mp3'
+          />
+        </audio>
+      )}
       </div>
     );
   };

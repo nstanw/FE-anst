@@ -8,6 +8,7 @@ import GoogleChar from '../Report/GoogleChar';
 import { taskAction } from '../../features/data/TaskSlice';
 import { postTask, getTask } from '../../features/data/TaskSlice';
 import AIcom from '../Report/AIcom';
+import Countdown from './Countdown';
 function Timer() {
   const props = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
@@ -37,6 +38,7 @@ function Timer() {
     const seconds =
       countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
     const timerCountDown = `${minute} : ${seconds}`;
+
     document.title = timerCountDown;
   }, [countdown]);
 
@@ -154,11 +156,45 @@ function Timer() {
               className='countdown'
               onChange={(e) => setTitle(timerCountDown)}
             >
+              <audio
+                // ref='audio_tag'
+                autoPlay={true}
+                controls={false}
+              >
+                <source
+                  type='audio/mp3'
+                  src='audio/clock_tic_toc.mp3'
+                />
+              </audio>
               {timerCountDown}
             </h1>
           ) : (
             <>
               <div>
+                {seconds === '10' && (
+                  <audio
+                    // ref='audio_tag'
+                    autoPlay={true}
+                    controls={false}
+                  >
+                    <source
+                      type='audio/mp3'
+                      src='audio/tic_toc.mp3'
+                    />
+                  </audio>
+                )}
+                {seconds === 'NaN' && (
+                  <audio
+                    // ref='audio_tag'
+                    autoPlay={true}
+                    controls={false}
+                  >
+                    <source
+                      type='audio/mp3'
+                      src='audio/tuturu.mp3'
+                    />
+                  </audio>
+                )}
                 {toogle.feedback ? (
                   <Feedback />
                 ) : (
@@ -168,10 +204,7 @@ function Timer() {
                     ) : (
                       <>
                         <div className='relax'>
-                          <h5>Relax...</h5>
-                        <button className='btnSimple'>  5 phút</button>
-                        <button  className='btnSimple'>15 phút</button>
-                        <button  className='btnSimple'>30 phút</button>
+                          <Countdown />
                         </div>
                         <ApexChart chartData={taskState} />
                         <AIcom chartData={taskState} />
