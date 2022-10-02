@@ -10,7 +10,7 @@ function Countdown() {
           return preState - 1;
         }
       });
-    }, 10);
+    }, 1000);
     return () => {
       clearInterval(timerId);
     };

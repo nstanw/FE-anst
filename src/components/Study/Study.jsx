@@ -160,7 +160,7 @@ export default function Study() {
         >
           <div className="notch"></div>
         </div>
-        {!toogle.status  && (
+        {/* {!toogle.status  && (
         <audio
           // ref='audio_tag'
           autoPlay={true}
@@ -171,7 +171,7 @@ export default function Study() {
             src='audio/apple_watch.mp3'
           />
         </audio>
-      )}
+      )} */}
       </div>
     );
   };
