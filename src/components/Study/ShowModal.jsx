@@ -34,7 +34,7 @@ function ShowModal(props) {
         className='btnWhite'
         onClick={toggle}
       >
-        Nhập link...
+        Nhập link ảnh...
       </span>
       <Modal
         isOpen={show}
@@ -49,6 +49,7 @@ function ShowModal(props) {
             value={link}
             onChange={(e) => setlink(e.target.value)}
           ></input>
+
         </ModalBody>
         <ModalFooter>
           <Button
