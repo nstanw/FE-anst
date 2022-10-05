@@ -6,8 +6,7 @@ import WorkingStatus from './Result';
 import Result from './Result';
 import Status from './Status/Status';
 import ApexChart from './Report/ApexChart';
-import SignupForm from './Auth/Signup';
-import AvatarUploadForm from './User/UploadAvatar';
+import UploadAvatar from './User/UploadAvatar';
 
 function Animation() {
   const location = useLocation();
@@ -34,12 +33,8 @@ function Animation() {
             element={<ApexChart/>}
           />
           <Route
-            path='/signup'
-            element={<SignupForm/>}
-          />
-          <Route
-            path='/User'
-            element={<AvatarUploadForm/>}
+            path='/user'
+            element={<UploadAvatar props= "UploadAvatar"/>}
           />
           <Route
             path='*'

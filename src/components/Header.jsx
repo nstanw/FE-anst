@@ -62,21 +62,10 @@ export default function Navbar({ fixed }) {
             <li class='nav-item'>
               <Link
                 className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-                to='signup'
+                to='user'
               >
-                {/* <BsFillCalculatorFill />{' '} */}
-                <span className='ml-2 heading__sub'>Sign Up</span>
-                
-              </Link>
-            </li>
-            <li class='nav-item'>
-              <Link
-                className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-                to='User'
-              >
-                {/* <BsFillCalculatorFill />{' '} */}
-                <span className='ml-2 heading__sub'>User</span>
-
+                <BsFillCalculatorFill />{' '}
+                <span className='ml-2 heading__sub'>user</span>
               </Link>
             </li>
           </ul>

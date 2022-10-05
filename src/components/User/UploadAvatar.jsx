@@ -1,36 +1,46 @@
-import React from 'react';
+import React from "react";
+import axios from "axios";
+import { useState } from "react";
 
-const AvatarUploadForm = () => {
-  const handleSubmit = (event) => {
-    console.log(event);
+function UploadAvatar({ props }) {
+  const URL = "http://localhost:3333/user/";
+  const PostLink = URL + props;
+  const [file, setFile] = useState(null);
+  const [status, setStatus] = useState("");
+  // const { userInfo } = useSelector((state) => state.userLogin);
+
+  const handleSubmit = async (event) => {
+    setStatus(""); // Reset status
     event.preventDefault();
-    const file = event.target.files[0]
-    console.log(event.target.files[0]);
-    const url = 'http://localhost:3333/user/uploadAvatar';
-
-    axios
-      .post(url, file, {
-        headers: {
-          'Content-Type':'multipart/form-data'
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((errors) => console.log(errors));
+    const formData = new FormData();
+    formData.append("avatar", file);
+    // console.log(formData);
+    const resp = await axios.post(PostLink, formData, {
+      headers: {
+        "content-type": "multipart/form-data",
+        // Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    setStatus(resp.status === 200 ? "Thank you!" : "Error.");
   };
-  return (
-    <form
-      encType='multipart/form-data'
-      onSubmit={event => handleSubmit(event)}
-    >
-      <label htmlFor='image'>image Address</label>
-      <input
-        id='image'
-        name='image'
-        type='file'
-      />
 
-      <button type='submit'>Submit</button>
-    </form>
+  return (
+    <div className="form-upload-file">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="file"
+          name="avatar"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <button type="submit">Upload File</button>
+        <label for="upload">
+          aaaa
+          <input type="file" id="upload" hidden />
+        </label>
+        {status ? <h1>{status}</h1> : null}
+      </form>
+    </div>
   );
-};
-export default AvatarUploadForm;
+}
+
+export default UploadAvatar;
