@@ -16,7 +16,7 @@ const ToogleSlice = createSlice({
       image: '',
     },
     youtube: {
-      link: 'https://www.youtube.com/watch?v=fn1YBnSgva0&ab_channel=jawonee',
+      // link: 'https://www.youtube.com/watch?v=fn1YBnSgva0&ab_channel=jawonee',
       autoplay: false,
     },
     image: {

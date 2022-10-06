@@ -22,27 +22,6 @@ export const postTask = createAsyncThunk(
 export const getTask = createAsyncThunk('Task/getTask', async () => {
   const response = await fetch('http://localhost:3333/gettask');
   const data = await response.json();
-  console.log('getTask:', data);
-
-  // const chartDay = {
-  //   minutes: [],
-  //   effective: [],
-  //   labelsTime: [],
-  //   notes: [],
-  //   skills: [],
-  //   create: [],
-  // };
-
-  // data.map((x) => {
-  //   chartDay.minutes = [...chartDay.minutes, x.task.countDown];
-  //   chartDay.effective = [...chartDay.effective, x.effective];
-  //   chartDay.labelsTime = [...chartDay.labelsTime, x.labelsTime];
-  //   chartDay.notes = [...chartDay.notes, x.notes];
-  //   chartDay.skills = [...chartDay.skills, x.skills];
-  //   chartDay.create = [...chartDay.create, x.createdAt];
-  // });
-  // console.log('ojb data getTask: ', chartDay);
-
   return data;
 });
 

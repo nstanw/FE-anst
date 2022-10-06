@@ -10,25 +10,20 @@ import { getTask } from "../../features/data/TaskSlice";
 import users, { getUserAPI } from "../../features/user/userSlice";
 import ShowModal from "./ShowModal";
 import Countdown from "./Countdown";
+import UploadStudyImage from "../User/UploadStudyImage";
+import UploadAvatar from "../User/UploadAvatar";
 
 export default function Study() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const study = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
-  const user = useSelector((state) => state.user);
+  const userState = useSelector((state) => state.user);
   useEffect(() => {
     toogle.status ? null : dispatch(actions.reset());
     dispatch(getTask());
     dispatch(getUserAPI());
   }, [toogle.status]);
-  useEffect(() => {
-      dispatch(getUserAPI());
-  },[user.image]);
-  useEffect(() => {
-      dispatch(getUserAPI());
-  },[user.video]);
-  console.log("study", study);
   const [toggled, setToggled] = React.useState(false);
   const [showTimer, setShowTimer] = React.useState(false);
   const [task, setTask] = React.useState({
@@ -68,15 +63,10 @@ export default function Study() {
       tomato: task.tomato === 0 ? 0 : task.tomato - 25,
     });
   };
-  const link = {
-    image: user.image.link,
-    video: user.video.link,
-  };
 
   const StudyAndMode = () => {
     return (
       <>
-        {console.log(task)}
         {/* study and mode */}
         <div className="text-center">
           <div className="display">
@@ -122,7 +112,7 @@ export default function Study() {
             <div className="display__content">
               <div className="display__content--padding">
                 <Youtube
-                  url={link.video}
+                  url={userState.video.id}
                   autoplay={toogle.youtube.autoplay}
                 />
                 <div className="display__content__form"></div>
@@ -133,9 +123,9 @@ export default function Study() {
           {toogle.active.image === "active" ? (
             <div className="display__content">
               <div className="display__content--padding">
-             { user.get.isSusses && <ShowImage />}
-             { user.get.isLoading && <h1>Loading...</h1>}
-             { user.get.isErr && <h1>err</h1>}
+             { userState.get.isSusses && <ShowImage />}
+             { userState.get.isLoading && <h1>Loading...</h1>}
+             { userState.get.isErr && <h1>err</h1>}
               </div>
               <div className="display__content__form"></div>
             </div>
@@ -180,7 +170,7 @@ export default function Study() {
     return (
       <div className="ShowImage">
         <div className="image">
-          <img src={link.image} />
+          <img src={userState.image.link} />
           <div class="dropdown">
             <button
               class="btnSimple dropdown-toggle"
@@ -193,25 +183,18 @@ export default function Study() {
               <li>
                 <ShowModal image={true}/>
               </li>
+              <li>
+              <UploadStudyImage props="UploadAvatar"/>
+              </li>
             </ul>
           </div>
         </div>
       </div>
     );
   }
-  const Youtube = ({ url = link.video, autoplay }) => {
+  const Youtube = ({ YoutubeVideoID = userState.video.id, autoplay }) => {
     autoplay ? (autoplay = "?autoplay=1") : (autoplay = "");
-    const checkLinkFull =  url.includes("watch?v=");
-    const checkLinkSort =  url.includes("youtu.be/");
-    let youtubeId = ''
-    if (checkLinkFull) {
-        youtubeId = url.split("watch?v=")[1].split("&")[0];
-        console.log(youtubeId);
-    }
-    if (checkLinkSort) {
-       youtubeId = url.split("youtu.be/")[1].split("&")[0];
-       console.log(youtubeId);
-    }
+    let youtubeId = YoutubeVideoID
     return (
       <div className="youtube row">
         <div className="image">

@@ -33,10 +33,6 @@ function UploadAvatar({ props }) {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button type="submit">Upload File</button>
-        <label for="upload">
-          aaaa
-          <input type="file" id="upload" hidden />
-        </label>
         {status ? <h1>{status}</h1> : null}
       </form>
     </div>

@@ -4,17 +4,15 @@ export const getUserAPI = createAsyncThunk('GET_User', async () => {
   try {
     const url = 'http://localhost:3333/getUser';
     const Respose = await axios.get(url);
-    console.log('Respose getUserAPI:', Respose.data);
     return Respose.data;
   } catch (error) {
     return rejectWithValue(err.response.data);
   }
 });
-export const postAvatar = createAsyncThunk('POST_Avater_User', async (img) => {
+export const postAvatar = createAsyncThunk('POST_ImgStudy_User', async (img) => {
   try {
-    const url = 'http://localhost:3333/postavatar';
+    const url = 'http://localhost:3333/postlinkimage';
     const Respose = await axios.post(url, img);
-    console.log('Respose postAvatar:', Respose.data);
     return Respose.data;
   } catch (error) {
     return rejectWithValue(err.response.data);
@@ -25,7 +23,10 @@ export const postLinkVideo = createAsyncThunk(
   async (video) => {
     try {
       const url = 'http://localhost:3333/updatevideo';
-      const Respose = await axios.post(url, video);
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }
+      const Respose = await axios.post(url, video, config);
       return Respose.data;
     } catch (error) {
       return rejectWithValue(err.response.data);
@@ -39,7 +40,7 @@ const initialState = {
     get: { isErr: false, isLoading: false, isSusses: false },
   },
   video: {
-    link: 'https://www.youtube.com/watch?v=IA-bzwypljQ&ab_channel=StudyWithMe',
+    id: 'MK9KDIXdrA0',
     post: { isErr: false, isLoading: false, isSusses: false },
     get: { isErr: false, isLoading: false, isSusses: false },
   },
@@ -58,7 +59,7 @@ const UserSlice = createSlice({
     },
     [getUserAPI.fulfilled]: (state, action) => {
       state.image.link = action.payload.image;
-      state.video.link = action.payload.video;
+      state.video.id = action.payload.video;
       state.get.isErr = false;
       state.get.isLoading = false;
       state.get.isSusses = true;
@@ -74,7 +75,7 @@ const UserSlice = createSlice({
       state.image.post.isSusses = false;
     },
     [postAvatar.fulfilled]: (state, action) => {
-      state.image.link = action.payload.image;
+      // state.image.link = action.payload.result.image;
       state.image.post.isErr = false;
       state.image.post.isLoading = false;
       state.image.post.isSusses = true;
@@ -90,7 +91,7 @@ const UserSlice = createSlice({
       state.video.post.isSusses = false;
     },
     [postLinkVideo.fulfilled]: (state, action) => {
-      state.video.video = action.payload.video;
+      // state.video.id = action.payload.video;
       state.video.post.isErr = false;
       state.video.post.isLoading = false;
       state.video.post.isSusses = true;

@@ -22,6 +22,7 @@ function ShowModal(props) {
     }
     if (props.youtube) {
       dispatch(postLinkVideo({ video: link }))
+      .then()
         .then(() => dispatch(getUserAPI()))
         .catch(err => console.error(err));
     }
@@ -34,7 +35,7 @@ function ShowModal(props) {
         className='btnWhite'
         onClick={toggle}
       >
-        Nhập link ảnh...
+        Nhập link ...
       </span>
       <Modal
         isOpen={show}
