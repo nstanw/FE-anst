@@ -12,7 +12,10 @@ export const getUserAPI = createAsyncThunk('GET_User', async () => {
 export const postAvatar = createAsyncThunk('POST_ImgStudy_User', async (img) => {
   try {
     const url = 'http://localhost:3333/postlinkimage';
-    const Respose = await axios.post(url, img);
+    const config = {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }
+    const Respose = await axios.post(url, img,config);
     return Respose.data;
   } catch (error) {
     return rejectWithValue(err.response.data);
@@ -35,7 +38,7 @@ export const postLinkVideo = createAsyncThunk(
 );
 const initialState = {
   image: {
-    link:'https://scontent.fvii1-1.fna.fbcdn.net/v/t1.6435-9/51672146_2261864930739783_377168149440626688_n.jpg?stp=dst-jpg_s960x960&_nc_cat=103&ccb=1-7&_nc_sid=e3f864&_nc_ohc=nfuulIHFd0sAX8npJ9Z&_nc_ht=scontent.fvii1-1.fna&oh=00_AT-zVoLgUGt4u939ChuPjhDwH24efG7gpe3VoJcAi3rEQw&oe=635A1B89',
+    link:"https://gridfiti.com/wp-content/uploads/2021/09/Lofi-Girl.jpeg",
     post: { isErr: false, isLoading: false, isSusses: false },
     get: { isErr: false, isLoading: false, isSusses: false },
   },
@@ -60,14 +63,18 @@ const UserSlice = createSlice({
     [getUserAPI.fulfilled]: (state, action) => {
       state.image.link = action.payload.image;
       state.video.id = action.payload.video;
+      state.image.get.isErr = false;
+      state.image.get.isLoading = false;
+      state.image.get.isSusses = true;
       state.get.isErr = false;
       state.get.isLoading = false;
       state.get.isSusses = true;
+      
     },
     [getUserAPI.rejected]: (state, action) => {
-      state.get.isErr = true;
-      state.get.isLoading = false;
-      state.get.isSusses = false;
+      state.image.get.isErr = true;
+      state.image.get.isLoading = false;
+      state.image.get.isSusses = false;
     },
     [postAvatar.pending]: (state, action) => {
       state.image.post.isErr = false;

@@ -11,7 +11,7 @@ import {
 } from '../../features/user/userSlice';
 
 function UploadStudyImage({ props }) {
-  const [link, setlink] = useState('');
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const URL = 'http://localhost:3333/user/';
   const PostLink = URL + props;
@@ -20,6 +20,7 @@ function UploadStudyImage({ props }) {
   const toggle = () => {
     setShow(!show);
   };
+
   const handleChangeImage = () => {
     console.log('link:', link);
     console.log('props:', props);
@@ -36,20 +37,19 @@ function UploadStudyImage({ props }) {
 
     // dispatch(actions.changeImage(link));
   };
-  // const { userInfo } = useSelector((state) => state.userLogin);
 
   const handleSubmit = async (event) => {
     setStatus(''); // Reset status
     event.preventDefault();
     const formData = new FormData();
     formData.append('avatar', file);
-    // console.log(formData);
     const resp = await axios.post(PostLink, formData, {
       headers: {
         'content-type': 'multipart/form-data',
         // Authorization: `Bearer ${userInfo.token}`,
       },
     });
+    dispatch(getUserAPI());
     toggle();
   };
 
