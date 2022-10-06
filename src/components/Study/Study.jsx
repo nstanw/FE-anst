@@ -12,7 +12,8 @@ import ShowModal from './ShowModal';
 import Countdown from './Countdown';
 import UploadStudyImage from '../User/UploadStudyImage';
 import UploadAvatar from '../User/UploadAvatar';
-
+import { AiOutlineCamera } from "react-icons/ai";
+import { AiFillYoutube } from "react-icons/ai";
 export default function Study() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ export default function Study() {
       countDown: task.tomato,
     };
     dispatch(addTask(payload));
-    console.log('---------', study);
   };
   const handleCounterUp = () => {
     setTask({
@@ -123,9 +123,9 @@ export default function Study() {
           {toogle.active.image === 'active' ? (
             <div className='display__content'>
               <div className='display__content--padding'>
-                {userState.get.isSusses && <ShowImage />}
-                {userState.get.isLoading && <h1>Loading...</h1>}
-                {userState.get.isErr && <h1>err</h1>}
+                {userState.isSusses && <ShowImage />}
+                {userState.isLoading && <h1>Loading...</h1>}
+                {userState.isErr && <h1>err</h1>}
               </div>
               <div className='display__content__form'></div>
             </div>
@@ -142,26 +142,11 @@ export default function Study() {
           className={`toogle${toogle.status ? ' night' : ''}`}
           onClick={() => {
             hideTimer();
-            // handleToggled();
             dispatch(actions.mode());
-            // console.log(toogle.status);
-            // toogle.status ? null : navigate('/status');
           }}
         >
           <div className='notch'></div>
         </div>
-        {/* {!toogle.status  && (
-        <audio
-          // ref='audio_tag'
-          autoPlay={true}
-          controls={false}
-        >
-          <source
-            type='audio/mp3'
-            src='audio/apple_watch.mp3'
-          />
-        </audio>
-      )} */}
       </div>
     );
   };
@@ -170,8 +155,10 @@ export default function Study() {
     return (
       <div className='ShowImage'>
         <div className='image'>
+          {console.log(userState.image.link.includes('images/'))}
+          {console.log('http://localhost:3333/' + userState.image.link)}
           {userState.image.link.includes('images/') ? (
-            <img src={"http://localhost:3333/" + userState.image.link} />
+            <img src={'http://localhost:3333/' + userState.image.link} />
           ) : (
             <img src={userState.image.link} />
           )}
@@ -181,11 +168,14 @@ export default function Study() {
               type='button'
               data-toggle='dropdown'
             >
-              Thay đổi ảnh
+             <AiOutlineCamera/>  Thay đổi ảnh
             </button>
             <ul class='dropdown-menu'>
               <li>
-                <ShowModal image={true} />
+                <ShowModal
+                  youtube={false}
+                  image={true}
+                />
               </li>
               <li>
                 <UploadStudyImage props='postImg' />
@@ -196,7 +186,7 @@ export default function Study() {
       </div>
     );
   }
-  const Youtube = ({ YoutubeVideoID = userState.video.id, autoplay }) => {
+  const Youtube = ({ YoutubeVideoID = userState.users.video, autoplay }) => {
     autoplay ? (autoplay = '?autoplay=1') : (autoplay = '');
     let youtubeId = YoutubeVideoID;
     return (
@@ -217,7 +207,7 @@ export default function Study() {
               type='button'
               data-toggle='dropdown'
             >
-              Change Video
+            <AiFillYoutube/>  Change Video
             </button>
             <ul class='dropdown-menu'>
               <li>
@@ -252,6 +242,7 @@ export default function Study() {
               <img
                 src='coffe.png'
                 alt=''
+                className='userInfor--avatar-size'
               />
             </div>
           ) : null}
@@ -262,6 +253,7 @@ export default function Study() {
                 <img
                   src='coffe.png'
                   alt=''
+                  className='userInfor--avatar-size'
                 />
               </div>
             </>

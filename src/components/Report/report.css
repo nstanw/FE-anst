@@ -1,39 +1,93 @@
-#spanBaoCao{
-    color: black;
+#spanBaoCao {
+  color: black;
 }
-.tableResults{
-    background-color: azure;
-    border-radius: 5px;
-    padding: 0px 15px;
-
+.tableResults {
+  background-color: azure;
+  border-radius: 5px;
+  padding: 0px 15px;
 }
-.report{
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
+.report {
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
 }
 .AiCom {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-.report__Show{
+.report__overview--show {
+  background-color: rgba(230, 187, 230, 0.762);
+  padding: 15px;
+  margin: 3px 2px;
 }
-
-.report__overview--show{
-background-color: rgba(230, 187, 230, 0.762);
-padding: 15px;
-margin: 3px 2px;
+.sumary__ {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-top: 28px;
+  margin-bottom: 28px;
 }
-.sumary__{
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    margin-top: 28px;
-    margin-bottom: 28px;
+.activitySum {
+  background-color: white;
+  padding-right: 12px;
+  font-weight: bold;
+  color: rgb(87, 87, 87);
+  font-size: 18px;
 }
-.activitySum{
-    background-color: white;
-    padding-right: 12px;
-    font-weight: bold;
-    color: rgb(87, 87, 87);
-    font-size: 18px;  
+.coverStudyImage {
+  padding: 3px;
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+.userInfor--avatar-size {
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+.avatar-profile {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  box-shadow: 0 0 0px 5px white;
+}
+.dropdownAvatar {
+  position: absolute;
+  left: 137px;
+  bottom: 15px;
+}
+.userInfor {
+  padding-top: 10px;
+  position: relative;
+  justify-content: flex-end;
+  align-content: space-around;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center;
+}
+.imageAvatar {
+  position: absolute;
+  top: -67px;
+  left: 39px;
+}
+.Avatar-view {
+  position: relative;
+}
+.sumary {
+  margin-top: 75px;
+  padding-top: 10px;
+  display: flex;
+}
+.userInfor--Name {
+  margin-left: 250px;
+  padding-left: 10px;
+}
+.imageCover{
+    width: 100%;
+    max-height: 312px;
+}
+.imageSub{
+    object-fit: cover;
+    width: 100%;
+    height: 312px;
 }

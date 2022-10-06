@@ -9,7 +9,7 @@ import {
   postLinkVideo,
   getUserAPI,
 } from '../../features/user/userSlice';
-
+import { AiOutlineCamera } from 'react-icons/ai';
 function UploadStudyImage({ props }) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -19,23 +19,6 @@ function UploadStudyImage({ props }) {
   const [status, setStatus] = useState('');
   const toggle = () => {
     setShow(!show);
-  };
-
-  const handleChangeImage = () => {
-    console.log('link:', link);
-    console.log('props:', props);
-    if (props.image) {
-      dispatch(postAvatar({ image: link }))
-        .then(() => dispatch(getUserAPI()))
-        .catch((err) => console.error(err));
-    }
-    if (props.youtube) {
-      dispatch(postLinkVideo({ video: link }))
-        .then(() => dispatch(getUserAPI()))
-        .catch((err) => console.error(err));
-    }
-
-    // dispatch(actions.changeImage(link));
   };
 
   const handleSubmit = async (event) => {
@@ -60,7 +43,7 @@ function UploadStudyImage({ props }) {
           className='btnWhite'
           onClick={toggle}
         >
-          Tải ảnh lên
+          <AiOutlineCamera /> Tải ảnh lên
         </span>
         <Modal
           isOpen={show}

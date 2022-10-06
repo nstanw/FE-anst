@@ -4,23 +4,27 @@ export const getUserAPI = createAsyncThunk('GET_User', async () => {
   try {
     const url = 'http://localhost:3333/getUser';
     const Respose = await axios.get(url);
+    console.log(Respose.data);
     return Respose.data;
   } catch (error) {
     return rejectWithValue(err.response.data);
   }
 });
-export const postAvatar = createAsyncThunk('POST_ImgStudy_User', async (img) => {
-  try {
-    const url = 'http://localhost:3333/postlinkimage';
-    const config = {
-      headers: { 'Content-Type': 'multipart/form-data' },
+export const postAvatar = createAsyncThunk(
+  'POST_ImgStudy_User',
+  async (img) => {
+    try {
+      const url = 'http://localhost:3333/postlinkimage';
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      };
+      const Respose = await axios.post(url, img, config);
+      return Respose.data;
+    } catch (error) {
+      return rejectWithValue(err.response.data);
     }
-    const Respose = await axios.post(url, img,config);
-    return Respose.data;
-  } catch (error) {
-    return rejectWithValue(err.response.data);
   }
-});
+);
 export const postLinkVideo = createAsyncThunk(
   'POST_LinkVideo',
   async (video) => {
@@ -28,7 +32,7 @@ export const postLinkVideo = createAsyncThunk(
       const url = 'http://localhost:3333/updatevideo';
       const config = {
         headers: { 'Content-Type': 'multipart/form-data' },
-      }
+      };
       const Respose = await axios.post(url, video, config);
       return Respose.data;
     } catch (error) {
@@ -37,8 +41,9 @@ export const postLinkVideo = createAsyncThunk(
   }
 );
 const initialState = {
+  users: {},
   image: {
-    link:"https://gridfiti.com/wp-content/uploads/2021/09/Lofi-Girl.jpeg",
+    link: 'https://gridfiti.com/wp-content/uploads/2021/09/Lofi-Girl.jpeg',
     post: { isErr: false, isLoading: false, isSusses: false },
     get: { isErr: false, isLoading: false, isSusses: false },
   },
@@ -47,8 +52,10 @@ const initialState = {
     post: { isErr: false, isLoading: false, isSusses: false },
     get: { isErr: false, isLoading: false, isSusses: false },
   },
-  post: { isErr: false, isLoading: false, isSusses: false },
-  get: { isErr: false, isLoading: false, isSusses: false },
+  avatar: 'images/1665068658108-maxresdefault.jpg',
+  isErr: false,
+  isLoading: true,
+  isSusses: false,
 };
 const UserSlice = createSlice({
   name: 'user',
@@ -56,25 +63,25 @@ const UserSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getUserAPI.pending]: (state, action) => {
-      state.get.isErr = false;
-      state.get.isLoading = true;
-      state.get.isSusses = false;
+      state.isErr = false;
+      state.isLoading = true;
+      state.isSusses = false;
     },
     [getUserAPI.fulfilled]: (state, action) => {
+      state.users = action.payload;
       state.image.link = action.payload.image;
       state.video.id = action.payload.video;
       state.image.get.isErr = false;
       state.image.get.isLoading = false;
       state.image.get.isSusses = true;
-      state.get.isErr = false;
-      state.get.isLoading = false;
-      state.get.isSusses = true;
-      
+      state.isErr = false;
+      state.isLoading = false;
+      state.isSusses = true;
     },
     [getUserAPI.rejected]: (state, action) => {
-      state.image.get.isErr = true;
-      state.image.get.isLoading = false;
-      state.image.get.isSusses = false;
+      state.get.isErr = true;
+      state.get.isLoading = false;
+      state.get.isSusses = false;
     },
     [postAvatar.pending]: (state, action) => {
       state.image.post.isErr = false;

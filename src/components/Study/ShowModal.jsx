@@ -3,7 +3,13 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { actions } from '../../features/toogle/toogleSlice';
-import { postAvatar, postLinkVideo , getUserAPI} from '../../features/user/userSlice';
+import {
+  postAvatar,
+  postLinkVideo,
+  getUserAPI,
+} from '../../features/user/userSlice';
+import { AiOutlineLink } from 'react-icons/ai';
+import axios from 'axios';
 function ShowModal(props) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -18,16 +24,28 @@ function ShowModal(props) {
     if (props.image) {
       dispatch(postAvatar({ image: link }))
         .then(() => dispatch(getUserAPI()))
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
+
     }
     if (props.youtube) {
       dispatch(postLinkVideo({ video: link }))
-      .then()
+        .then()
         .then(() => dispatch(getUserAPI()))
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
+  
     }
-
-    // dispatch(actions.changeImage(link));
+    if (props.avatar) {
+      const data = { avatar: link };
+      const url = 'http://localhost:3333/user/postAvatar';
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      };
+      axios
+        .post(url, data, config)
+        .then((res) => dispatch(getUserAPI()))
+        .catch((err) => console.error(err));
+    }
+    toggle();
   };
   return (
     <div>
@@ -35,7 +53,7 @@ function ShowModal(props) {
         className='btnWhite'
         onClick={toggle}
       >
-        Nhập link ...
+        <AiOutlineLink /> Nhập Link
       </span>
       <Modal
         isOpen={show}
@@ -50,12 +68,11 @@ function ShowModal(props) {
             value={link}
             onChange={(e) => setlink(e.target.value)}
           ></input>
-
         </ModalBody>
         <ModalFooter>
           <Button
             className='btnSave'
-            onClick= {handleChangeImage}
+            onClick={handleChangeImage}
             // onClick={toggle}
           >
             Save

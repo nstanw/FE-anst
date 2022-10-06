@@ -3,10 +3,9 @@ import './header.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../features/toogle/toogleSlice';
-import { BsFillMenuButtonWideFill } from 'react-icons/bs';
 import { BsFillBarChartFill } from 'react-icons/bs';
 import { BsFillCalculatorFill } from 'react-icons/bs';
-import { BsPencilSquare } from 'react-icons/bs';
+import { AiOutlineUser } from "react-icons/ai";
 
 export default function Navbar({ fixed }) {
   const dispatch = useDispatch();
@@ -46,8 +45,8 @@ export default function Navbar({ fixed }) {
                 className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
                 to='/report'
               >
-                <BsFillBarChartFill />{' '}
-                <span className='ml-2 heading__sub'>Report</span>
+                <AiOutlineUser />
+                <span className='ml-2 heading__sub'>User</span>
               </Link>
             </li>
             <li class='nav-item'>
