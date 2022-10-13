@@ -11,12 +11,14 @@ function UserInfo({ userState }) {
     <div className='userInfor'>
       <div className='userInfor--avatar '>
         <div className='userInfor--avatar-size '>
-          <Avatar/>
+          <Avatar />
         </div>
       </div>
-      <div className='userInfor--Name '>
-        <h1>{userState.users.username}</h1>
-        <p>{userState.users.email}</p>
+      <div className='row'>
+        <div className='col-sm-12 col-md-3 offset-md-3 userInfor--Name '>
+          <h1>{userState.users.username}</h1>
+          <p>{userState.users.email}</p>
+        </div>
       </div>
     </div>
   );

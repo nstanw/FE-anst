@@ -5,14 +5,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../features/toogle/toogleSlice';
 import { BsFillBarChartFill } from 'react-icons/bs';
 import { BsFillCalculatorFill } from 'react-icons/bs';
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser } from 'react-icons/ai';
+import Aurthentication from './Auth/Loggin';
 
 export default function Navbar({ fixed }) {
   const dispatch = useDispatch();
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <div className='headerStudy'>
-      <nav class='navbar navbar-expand-lg'>
+      <nav class=''>
         <div>
           <Link to='/'>
             <span
@@ -23,7 +24,7 @@ export default function Navbar({ fixed }) {
             </span>
           </Link>
         </div>
-        <button
+        {/* <button
           class='navbar-toggler'
           type='button'
           data-toggle='collapse'
@@ -33,41 +34,28 @@ export default function Navbar({ fixed }) {
           aria-label='Toggle navigation'
         >
           <span class='navbar-toggler-icon'></span>
-        </button>
+        </button> */}
 
-        <div
-          class='collapse navbar-collapse'
-          id='navbarSupportedContent'
-        >
-          <ul class='navbar-nav mr-auto'>
-            <li class='nav-item'>
-              <Link
-                className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-                to='/report'
-              >
-                <AiOutlineUser />
-                <span className='ml-2 heading__sub'>User</span>
-              </Link>
-            </li>
-            <li class='nav-item'>
-              <Link
-                className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-                to='result'
-              >
-                <BsFillCalculatorFill />{' '}
-                <span className='ml-2 heading__sub'>Result</span>
-              </Link>
-            </li>
-            <li class='nav-item'>
-              <Link
-                className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-                to='user'
-              >
-                <BsFillCalculatorFill />{' '}
-                <span className='ml-2 heading__sub'>user</span>
-              </Link>
-            </li>
-          </ul>
+        <div class='nav-item'>
+          <Link
+            className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
+            to='/report'
+          >
+            <AiOutlineUser />
+            <span className='ml-2 heading__sub'>User</span>
+          </Link>
+        </div>
+        <div class='nav-item'>
+          <Link
+            className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
+            to='result'
+          >
+            <BsFillCalculatorFill />{' '}
+            <span className='ml-2 heading__sub'>Result</span>
+          </Link>
+        </div>
+        <div class='nav-item'>
+          <Aurthentication />
         </div>
       </nav>
     </div>

@@ -7,6 +7,7 @@ import logger from 'redux-logger';
 import counterReducer from '../features/counter/counterSlice';
 import studyReducer from '../features/data/studyDetail';
 import toogleReducer from '../features/toogle/toogleSlice';
+import authStatusReducer from '../features/toogle/authStatus';
 import chartReducer from '../features/data/GoogleCharSlice';
 import apexChartReducer from '../features/data/ApexChartSlice';
 import taskReducer from '../features/data/TaskSlice';
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   apexChart: apexChartReducer,
   task: taskReducer,
   user: userReducer,
+  authStatus: authStatusReducer,
 });
 
 export const store = configureStore({

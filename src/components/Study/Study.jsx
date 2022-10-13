@@ -12,21 +12,30 @@ import ShowModal from './ShowModal';
 import Countdown from './Countdown';
 import UploadStudyImage from '../User/UploadStudyImage';
 import UploadAvatar from '../User/UploadAvatar';
-import { AiOutlineCamera } from "react-icons/ai";
-import { AiFillYoutube } from "react-icons/ai";
+import { AiOutlineCamera } from 'react-icons/ai';
+import { AiFillYoutube } from 'react-icons/ai';
+import Note from './Note';
+
 export default function Study() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const study = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
   const userState = useSelector((state) => state.user);
+
   useEffect(() => {
     toogle.status ? null : dispatch(actions.reset());
     dispatch(getTask());
     dispatch(getUserAPI());
   }, [toogle.status]);
+
   const [toggled, setToggled] = React.useState(false);
   const [showTimer, setShowTimer] = React.useState(false);
+  const [mediaStudy, setMediaStudy] = useState({
+    image: "https://gridfiti.com/wp-content/uploads/2021/09/Lofi-Girl.jpeg",
+    video: "nHeuZ8EIbSU",
+  })
   const [task, setTask] = React.useState({
     task: '',
     tomato: 25,
@@ -155,20 +164,18 @@ export default function Study() {
     return (
       <div className='ShowImage'>
         <div className='image'>
-          {console.log(userState.image.link.includes('images/'))}
-          {console.log('http://localhost:3333/' + userState.image.link)}
-          {userState.image.link.includes('images/') ? (
+          {false ? (
             <img src={'http://localhost:3333/' + userState.image.link} />
           ) : (
-            <img src={userState.image.link} />
+            <img src={mediaStudy.image} />
           )}
-          <div class='dropdown'>
+          <div class='dropdown-study'>
             <button
               class='btnSimple dropdown-toggle'
               type='button'
               data-toggle='dropdown'
             >
-             <AiOutlineCamera/>  Thay đổi ảnh
+              <AiOutlineCamera /> Thay đổi ảnh
             </button>
             <ul class='dropdown-menu'>
               <li>
@@ -186,7 +193,7 @@ export default function Study() {
       </div>
     );
   }
-  const Youtube = ({ YoutubeVideoID = userState.users.video, autoplay }) => {
+  const Youtube = ({ YoutubeVideoID = mediaStudy.video, autoplay }) => {
     autoplay ? (autoplay = '?autoplay=1') : (autoplay = '');
     let youtubeId = YoutubeVideoID;
     return (
@@ -201,13 +208,13 @@ export default function Study() {
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
           ></iframe>
-          <div class='dropdown'>
+          <div class='dropdown-study'>
             <button
               class='btnSimple dropdown-toggle'
               type='button'
               data-toggle='dropdown'
             >
-            <AiFillYoutube/>  Change Video
+              <AiFillYoutube /> Change Video
             </button>
             <ul class='dropdown-menu'>
               <li>
@@ -239,11 +246,14 @@ export default function Study() {
         <div className='task-timer'>
           {!showTimer ? (
             <div className='coffe'>
-              <img
-                src='coffe.png'
-                alt=''
-                className='userInfor--avatar-size'
-              />
+              <div className='take-note'>
+                <img
+                  src='coffe.png'
+                  alt=''
+                  className='userInfor--avatar-size'
+                />
+                <Note />
+              </div>
             </div>
           ) : null}
           {toogle.status ? (
@@ -255,6 +265,7 @@ export default function Study() {
                   alt=''
                   className='userInfor--avatar-size'
                 />
+                <Note />
               </div>
             </>
           ) : (

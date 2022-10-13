@@ -1,7 +1,13 @@
-.signup {
+/* .signup {
     background: whitesmoke;
     border-radius: 10px;
-}
+} */
 .error{
     color: red;
+}
+.form-fiel{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: stretch;
 }

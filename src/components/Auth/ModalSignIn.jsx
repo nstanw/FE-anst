@@ -2,52 +2,54 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './auth.css';
-import axios from 'axios';
-import UserApi from '../../util/api/UserApi';
-import HOST from '../../util/HOST';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-function ModalSignUp() {
+import { PREFIX } from '../../util/fetchData';
+
+function ModalSignIn() {
   const navigate = useNavigate();
+
   const [errors, setErrors] = useState();
   const formik = useFormik({
     initialValues: {
-      fullname: '',
       password: '',
       email: '',
     },
     validationSchema: Yup.object({
-      fullname: Yup.string()
-        .min(5, 'Must be 5 characters or less')
-        .required('Required'),
       password: Yup.string()
         .min(5, 'Must be 5 characters or less')
         .required('Required'),
       email: Yup.string().email('Invalid email address').required('Required'),
     }),
-
     onSubmit: async (values) => {
+      const url = PREFIX + '/login';
       const data = {
         email: values.email,
         password: values.password,
-        fullname: values.fullname,
       };
-
-      const url = HOST.API + '/signup';
+      console.log(data);
       const config = {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       };
-
       const Respose = await axios.post(url, data, config);
       console.log(Respose.data);
-      // if (Respose.data.password === false) {
-      //   alert('Please enter agian password');
-      //   // navigate('/')
-      // }
 
-      if (Respose.data.token) {
-        console.log(Respose.data.token);
-        return navigate('/');
+      // get token from fetch request
+      const token = await Respose.data.token;
+
+      // set token in cookie
+      document.cookie = `token=${token}`;
+      console.log(document.cookie);
+      if (Respose.data.password === false) {
+        // alert('Please enter agian password');
+        // navigate('/')
+      }
+      if (Respose.data.isLoggedIn === true) {
+        alert(' Navigate  ');
+        navigate('/');
       }
       return Respose.data;
     },
@@ -56,12 +58,13 @@ function ModalSignUp() {
     <>
       <div>
         <Modal isOpen={true}>
-          <ModalHeader>Modal title</ModalHeader>
+          <ModalHeader> Sign In </ModalHeader>
           <ModalBody>
             <form
               onSubmit={formik.handleSubmit}
               className='form-log'
             >
+              {errors && <span className=''>{errors}</span>}
               <div className='form-fiel form-email'>
                 <label htmlFor='email'>Email Address</label>
                 <input
@@ -72,17 +75,6 @@ function ModalSignUp() {
                 />
                 {formik.touched.email && formik.errors.email ? (
                   <div>{formik.errors.email}</div>
-                ) : null}
-              </div>
-              <div className='form-fiel form-fullname'>
-                <label htmlFor='fullname'>Full Name</label>
-                <input
-                  id='fullname'
-                  type='text'
-                  {...formik.getFieldProps('fullname')}
-                />
-                {formik.touched.fullname && formik.errors.fullname ? (
-                  <div>{formik.errors.fullname}</div>
                 ) : null}
               </div>
               <div className='form-fiel form-passwork'>
@@ -102,7 +94,7 @@ function ModalSignUp() {
                     type='submit'
                     className='btn btn-deep-orange'
                   >
-                    Sign up
+                    Sign In
                   </button>
                 </div>
               </div>
@@ -114,4 +106,4 @@ function ModalSignUp() {
   );
 }
 
-export default ModalSignUp;
+export default ModalSignIn;

@@ -18,6 +18,7 @@ function ShowModal(props) {
   const toggle = () => {
     setShow(!show);
   };
+  const handleShow = () => setShow(true);
   const handleChangeImage = () => {
     console.log('link:', link);
     console.log('props:', props);
