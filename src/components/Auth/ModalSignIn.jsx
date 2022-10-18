@@ -6,11 +6,18 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PREFIX } from '../../util/fetchData';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from './../../features/toogle/authStatus';
+import { userActions } from './../../features/user/userSlice';
+import ModalSignUp from './ModalSignUp';
 
 function ModalSignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
+  const [errors, setErrors] = useState(false);
+  const [wrongPass, setWrongPass] = useState(false);
 
-  const [errors, setErrors] = useState();
   const formik = useFormik({
     initialValues: {
       password: '',
@@ -22,33 +29,44 @@ function ModalSignIn() {
         .required('Required'),
       email: Yup.string().email('Invalid email address').required('Required'),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values,) => {
       const url = PREFIX + '/login';
       const data = {
         email: values.email,
         password: values.password,
       };
-      console.log(data);
+
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       };
       const Respose = await axios.post(url, data, config);
+
       console.log(Respose.data);
+      const user = await Respose.data;
+      console.log(user);
+       localStorage.setItem('user', JSON.stringify(user));
 
-      // get token from fetch request
-      const token = await Respose.data.token;
-
-      // set token in cookie
-      document.cookie = `token=${token}`;
-      console.log(document.cookie);
-      if (Respose.data.password === false) {
-        // alert('Please enter agian password');
-        // navigate('/')
+      //check wrongPassword
+      if (Respose.data.message) {
+       return setWrongPass(!wrongPass);
       }
-      if (Respose.data.isLoggedIn === true) {
-        alert(' Navigate  ');
+      if (Respose.data.error) {
+       return setErrors(!errors);
+      }
+
+ 
+      if (Respose.data.status) {
+        dispatch(actions.openLogIn());
+        console.log(Respose.data.user);
+        dispatch(
+          userActions.logIn({
+            isLoggin: true,
+            token: Respose.data.token,
+            users: Respose.data.user
+          })
+        );
         navigate('/');
       }
       return Respose.data;
@@ -56,17 +74,29 @@ function ModalSignIn() {
   });
   return (
     <>
+      <div onClick={() => dispatch(actions.openLogIn())}>
+        <span>Login</span>
+      </div>
+
       <div>
-        <Modal isOpen={true}>
+        <Modal
+          isOpen={store.authStatus.openLogIn}
+          toggle={() => dispatch(actions.openLogIn())}
+        >
           <ModalHeader> Sign In </ModalHeader>
           <ModalBody>
             <form
               onSubmit={formik.handleSubmit}
               className='form-log'
             >
-              {errors && <span className=''>{errors}</span>}
               <div className='form-fiel form-email'>
-                <label htmlFor='email'>Email Address</label>
+         
+                {errors && (
+                  <span className='span-form'>
+                   Email not registered. Please Choise again or Sign Up
+                  </span>
+                )}
+
                 <input
                   id='email'
                   type='email'
@@ -74,28 +104,35 @@ function ModalSignIn() {
                   {...formik.getFieldProps('email')}
                 />
                 {formik.touched.email && formik.errors.email ? (
-                  <div>{formik.errors.email}</div>
+                  <span className='span-form'>{formik.errors.email}</span>
                 ) : null}
               </div>
               <div className='form-fiel form-passwork'>
-                <label htmlFor='password'>Password</label>
+              {wrongPass && (
+                  <span className='span-form'>
+                    Authentication failed. Wrong password
+                  </span>
+                )}
                 <input
                   id='password'
                   type='password'
+                  placeholder='password'
                   {...formik.getFieldProps('password')}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <div>{formik.errors.password}</div>
+                  <span className='span-form'>{formik.errors.password}</span>
                 ) : null}
               </div>
               <div className='form-fiel form-sign-up'>
                 <div className='modal-footer d-flex justify-content-center'>
-                  <button
-                    type='submit'
-                    className='btn btn-deep-orange'
-                  >
-                    Sign In
-                  </button>
+                  <div className='btn-submit-form'>
+                    <button
+                      type='submit'
+                      className='submit-form'
+                    >
+                      Sign In
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>

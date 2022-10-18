@@ -13,7 +13,7 @@ export default function Navbar({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <div className='headerStudy'>
-      <nav class=''>
+      <nav className=''>
         <div>
           <Link to='/'>
             <span
@@ -24,38 +24,20 @@ export default function Navbar({ fixed }) {
             </span>
           </Link>
         </div>
-        {/* <button
-          class='navbar-toggler'
-          type='button'
-          data-toggle='collapse'
-          data-target='#navbarSupportedContent'
-          aria-controls='navbarSupportedContent'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-        >
-          <span class='navbar-toggler-icon'></span>
-        </button> */}
-
-        <div class='nav-item'>
-          <Link
-            className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-            to='/report'
-          >
-            <AiOutlineUser />
-            <span className='ml-2 heading__sub'>User</span>
-          </Link>
-        </div>
-        <div class='nav-item'>
-          <Link
-            className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-            to='result'
-          >
-            <BsFillCalculatorFill />{' '}
-            <span className='ml-2 heading__sub'>Result</span>
-          </Link>
-        </div>
-        <div class='nav-item'>
-          <Aurthentication />
+        <div className='container-item'>
+          <div className='nav-item'>
+            <Link
+              className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
+              to='/Profile'
+            >
+              <span className='ml-2 heading__sub'>Profile</span>
+            </Link>
+          </div>
+          <div className='nav-item'>
+            <div className='heading__sub heading-user'>
+              <Aurthentication />
+            </div>
+          </div>
         </div>
       </nav>
     </div>

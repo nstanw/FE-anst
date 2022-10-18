@@ -2,12 +2,78 @@
     background: whitesmoke;
     border-radius: 10px;
 } */
-.error{
-    color: red;
+.error {
+  color: red;
 }
-.form-fiel{
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: stretch;
+.form-fiel {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: stretch;
+}
+#toggle-btn-auth {
+  display: flex;
+  border: none;
+  background-color: #ffffff00;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: #ffffff;
+}
+.heading-user {
+  display: flex;
+}
+#signUP{
+  text-decoration: underline !important;
+}
+#email{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 95%;
+  border-color: #0984e3;
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+
+#password{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 95%;
+  border-color: #0984e3;
+  padding-left: 15px;
+}
+.span-form{
+  padding: 15px 0;
+  color: red;
+}
+#fullname{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 95%;
+  border-color: #0984e3;
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+.submit-form{
+  padding: 5px 30px;
+  font-weight: 600;
+  background-color: #00b894;
+  color: whitesmoke;
+  border-radius: 6px;
+  border-color: #74b9ff;
+}
+.modal-content {
+ font-family:cursive;
+}
+#signUp-btn-form {
+  display: flex;
+  flex-direction: column;
+}
+#signIn-btn-form {
+  display: flex;
+  flex-direction: column;
 }

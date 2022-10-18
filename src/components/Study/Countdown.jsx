@@ -27,13 +27,13 @@ function Countdown() {
   const minute = Math.floor(countdown / 60);
   const seconds =
     countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
-  const timerCountDown = `${minute} : ${seconds}`;
+  const timerCountDown = seconds  === NaN ? `00:00` :  `${minute} : ${seconds}`;
   return (
     <div className='Countdown'>
       <div className='relax'>
         <h5>Relax...</h5>
         <button
-          className='btnSimple'
+          className='btn-require'
           onClick={() => {
             setPlayAudio(true);
             setCountdown(5 * 60);
@@ -43,7 +43,7 @@ function Countdown() {
           5 phút
         </button>
         <button
-          className='btnSimple'
+          className='btn-require'
           onClick={() => {
             setPlayAudio(true);
             setCountdown(15 * 60);
@@ -52,7 +52,7 @@ function Countdown() {
           15 phút
         </button>
         <button
-          className='btnSimple'
+          className='btn-require'
           onClick={() => {
             setPlayAudio(true);
             setCountdown(30 * 60);

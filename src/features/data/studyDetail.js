@@ -24,7 +24,6 @@ const studySlice = createSlice({
       countDown: 25 ,
     },
     feedback:{
-      
     }
   },
   reducers: {

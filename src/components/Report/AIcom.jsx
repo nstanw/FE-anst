@@ -9,17 +9,15 @@ function AIcom(chartData) {
   const dispatch = useDispatch();
   const dataRenderChart = chartData.chartData.chartData;
   const isShowAICom = useSelector((state) => state.apexChart.AIcom.report);
-  const [date, setDate] = useState(new Date().getDate())
+  const [date, setDate] = useState(new Date().getDate());
   //handleChange
   const handleChange = (e) => {
     setDate(e.target.value);
-    
-
-  }
+  };
 
   console.log(date);
   console.log('AICom:', chartData.chartData.chartData);
-  
+
   // filter task toDay
   const now = new Date().toLocaleDateString();
   const toDay = dataRenderChart.filter((task) => {
@@ -83,7 +81,7 @@ function AIcom(chartData) {
   };
 
   return (
-    <div className='AiCom '>    
+    <div className='AiCom '>
       <div
         className='tableResults'
         onClick={() => dispatch(ApexChartActions.AIcom())}
@@ -92,30 +90,25 @@ function AIcom(chartData) {
           <div className='taskName'>
             <span id='spanBaoCao'>Báo cáo</span>
           </div>
-          <div id='timeAndEdit'>
-            <div className='px-2'>{date}
-            {/* {new Date().toDateString()} */}
-            </div>
-            {/* input date */}
-            <input type="date" name="dateTask" id="dateTask"
-            value={date}
-            onChange={e => handleChange(e)}
-            />
-          </div>
+         
         </div>
         {isShowAICom ? (
           <div className='row'>
-            <table class='table table-striped'>
+            <table className='table table-striped'>
               <thead>
-                <tr class="bg-success">
+                <tr className='bg-success'>
                   <th scope='col'>Thời gian</th>
                   <th scope='col'>Số Phiên</th>
                   <th scope='col'>Hiệu quả</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="table-info">
-                  <td>{dataAIcom.sumMinute} phút ({Math.floor(dataAIcom.sumMinute/60)}h{dataAIcom.sumMinute%60}')</td>
+                <tr className='table-info'>
+                  <td>
+                    {dataAIcom.sumMinute} phút (
+                    {Math.floor(dataAIcom.sumMinute / 60)}h
+                    {dataAIcom.sumMinute % 60}')
+                  </td>
                   <td>{minutes.length}</td>
                   <td>{dataAIcom.avgEffective}</td>
                 </tr>
@@ -123,12 +116,10 @@ function AIcom(chartData) {
             </table>
             {/* 00000000000 */}
             <div className='tableResults--detail'>
-              <table class='table table-striped'>
+              <table className='table table-striped'>
                 <thead>
-                <tr class="bg-success">
+                  <tr className='bg-success'>
                     <th>Time</th>
-                    {/* <th>Thời gian</th> */}
-                    {/* <th>Hiệu quả</th> */}
                     <th>Task</th>
                     <th>Skills</th>
                     <th>Notes</th>
@@ -137,11 +128,12 @@ function AIcom(chartData) {
                 <tbody>
                   {chartDay.minutes.map((row, id) => {
                     return (
-                      <tr key={id} class="table-info">
+                      <tr
+                        key={id}
+                        className='table-info'
+                      >
                         <td>{labelsTime[id]}</td>
                         <td>{chartDay.name[id]}</td>
-                        {/* <td>{minutes[id]}</td> */}
-                        {/* <td>{effective[id]}</td> */}
                         <td>{chartDay.skills[id]}</td>
                         <td>{chartDay.notes[id]}</td>
                       </tr>

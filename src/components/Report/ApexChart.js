@@ -29,7 +29,7 @@ function ApexChart(chartData) {
       createdAt: [],
     };
 
-    toDay.map((x) => {
+    dataRenderChart.map((x) => {
       chartDay.minutes = [...chartDay.minutes, x.task.countDown];
       chartDay.effective = [...chartDay.effective, x.effective];
       chartDay.labelsTime = [...chartDay.labelsTime, x.labelsTime];
@@ -40,6 +40,17 @@ function ApexChart(chartData) {
         consvertCreated(x.createdAt),
       ];
     });
+    // toDay.map((x) => {
+    //   chartDay.minutes = [...chartDay.minutes, x.task.countDown];
+    //   chartDay.effective = [...chartDay.effective, x.effective];
+    //   chartDay.labelsTime = [...chartDay.labelsTime, x.labelsTime];
+    //   chartDay.notes = [...chartDay.notes, x.notes];
+    //   chartDay.skills = [...chartDay.skills, x.skills];
+    //   chartDay.createdAt = [
+    //     ...chartDay.createdAt,
+    //     consvertCreated(x.createdAt),
+    //   ];
+    // });
     // consvert createdAt to 24h hh:mm format
     console.log('toDay: ', chartDay);
     

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ApexChartActions } from '../../features/data/ApexChartSlice';
 import { actions } from '../../features/toogle/toogleSlice';
 import ApexChart from '../Report/ApexChart';
@@ -9,16 +9,18 @@ import { taskAction } from '../../features/data/TaskSlice';
 import { postTask, getTask } from '../../features/data/TaskSlice';
 import AIcom from '../Report/AIcom';
 import Countdown from './Countdown';
+
 function Timer() {
-  const props = useSelector((state) => state.study);
-  const toogle = useSelector((state) => state.toogle);
-  const dataChart = useSelector((state) => state.task.apexChart);
-  const taskState = useSelector((state) => state.task);
-  const [selected, setSelected] = useState('8');
-  const [title, setTitle] = useState('bee Study');
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const props = useSelector((state) => state.study);
+  const store = useSelector((state) => state);
+  const toogle = useSelector((state) => state.toogle);
+  const STORE = useSelector((state) => state);
+  const taskState = useSelector((state) => state.task);
+  const [title, setTitle] = useState('bee Study');
+
   const [countdown, setCountdown] = useState(props.task.countDown * 60);
-  // const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -27,7 +29,7 @@ function Timer() {
           return preState - 1;
         }
       });
-    }, 1);
+    }, 1000);
     return () => {
       clearInterval(timerId);
     };
@@ -38,17 +40,23 @@ function Timer() {
     const seconds =
       countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
     const timerCountDown = `${minute} : ${seconds}`;
-
+    //set Title Web
     document.title = timerCountDown;
   }, [countdown]);
 
   const minute = Math.floor(countdown / 60);
   const seconds =
     countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
-  const timerCountDown = `${minute} : ${seconds}`;
+  const timerCountDown = seconds === NaN ? null : `${minute} : ${seconds}`;
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!STORE.user.isLoggin) {
+      return navigate('/Profile');
+    }
     const data = {
+      email: store.user.users.email,
+      ghiChu: store.task.note,
       effective: parseInt(e.target[0].value),
       skills: e.target[1].value,
       notes: e.target[2].value,
@@ -56,17 +64,9 @@ function Timer() {
       labelsTime: new Date().toLocaleTimeString(),
     };
     console.log('submit feedback:', data);
-    // const payload = ['1234xx', data.task.countDown, 'gold'];
-    const payloadApexChart = {
-      name: 'Day Charts',
-      time: data.task.countDown,
-      effective: data.effective,
-      labels: data.labelsTime,
-      skills: data.skills,
-      notes: data.notes,
-    };
 
     const payloadTask = {
+      email: data.email,
       task: {
         name: props.task.name,
         countDown: props.task.countDown,
@@ -77,11 +77,8 @@ function Timer() {
       labelsTime: new Date().toLocaleTimeString(),
     };
 
-    // dispatch(ApexChartActions.addColumChart(payloadApexChart));
     dispatch(postTask(payloadTask)).then(() => dispatch(getTask()));
-    // dispatch(getTask());
     dispatch(actions.hidenFeedback());
-    // dispatch(actions.mode());
   };
   const Feedback = () => {
     return (
@@ -90,28 +87,79 @@ function Timer() {
           <div className='paddingUpDown'>
             <form onSubmit={handleSubmit}>
               <div className='item-center'>
-                <label htmlFor='hieuQua'>Mức độ hài lòng(1-10)</label>
+                <label
+                  htmlFor='hieuQua'
+                  id='lb-effective'
+                >
+                  Mức độ hài lòng(1-10)
+                </label>
               </div>
               <div className='py-2'>
                 <select
                   name='score'
                   id='score'
                 >
-                  <option value='1'>1 (Không hài lòng)</option>
-                  <option value='2'>2 (Không ăn thua)</option>
-                  <option value='3'>3 (qua chuyện)</option>
-                  <option value='4'>4 (Tàm tạm)</option>
-                  <option value='5'>5 (Trung Bình)</option>
-                  <option value='6'>6 (Vừa)</option>
-                  <option value='7'>7 (Khá)</option>
+                  <option
+                    className='op-value'
+                    value='1'
+                  >
+                    1 (Không hài lòng)
+                  </option>
+                  <option
+                    className='op-value'
+                    value='2'
+                  >
+                    2 (Không ăn thua)
+                  </option>
+                  <option
+                    className='op-value'
+                    value='3'
+                  >
+                    3 (qua chuyện)
+                  </option>
+                  <option
+                    className='op-value'
+                    value='4'
+                  >
+                    4 (Tàm tạm)
+                  </option>
+                  <option
+                    className='op-value'
+                    value='5'
+                  >
+                    5 (Trung Bình)
+                  </option>
+                  <option
+                    className='op-value'
+                    value='6'
+                  >
+                    6 (Vừa)
+                  </option>
+                  <option
+                    className='op-value'
+                    value='7'
+                  >
+                    7 (Khá)
+                  </option>
                   <option
                     selected
                     value='8'
+                    className='op-value'
                   >
                     8 (Tốt)
                   </option>
-                  <option value='9'>9 (Hảo Hảo)</option>
-                  <option value='10'>10 (Tuyệt vời)</option>
+                  <option
+                    className='op-value'
+                    value='9'
+                  >
+                    9 (Hảo Hảo)
+                  </option>
+                  <option
+                    className='op-value'
+                    value='10'
+                  >
+                    10 (Tuyệt vời)
+                  </option>
                 </select>
               </div>
               <div className='Form__texarena'>
@@ -128,6 +176,7 @@ function Timer() {
                   name='notes'
                   id='note'
                   placeholder='Notes your Thing ^^'
+                  // onChange={handleChange}audio/mp3
                 ></textarea>
               </div>
               <div className=' Form__button saveTask'>
@@ -212,7 +261,6 @@ function Timer() {
                     )}
                   </>
                 )}
-                {taskState.post.isErr && <h1>ERR</h1>}
               </div>
             </>
           )}

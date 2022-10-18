@@ -14,7 +14,6 @@
 }
 .take-note {
   display: flex;
-
   align-content: space-between;
   flex-wrap: nowrap;
   justify-content: center;
@@ -24,4 +23,36 @@
   width: 25px;
   margin-right: 0px;
   margin-left: 0px;
+}
+.note-span {
+  margin: 0px;
+  border-radius: 107px;
+  font-size: 16px;
+  height: 28px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.15) none repeat scroll 0% 0%;
+  box-shadow: none;
+  color: rgb(225 218 133);
+  opacity: 1;
+  font-weight: bold;
+  padding: 2px 7px;
+  padding-bottom: 5px;
+  border: medium none;
+}
+#saveNote {
+  display: flex;
+  justify-content: flex-end;
+}
+#lb-effective {
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: #524f4f;
+}
+.op-value{
+  font-weight: 500;
+}
+#taskName{
+  word-break: break-word;
 }

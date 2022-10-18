@@ -30,7 +30,7 @@ export const postData = async (path, token, value) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authentication: 'Bearer ' + token,
       },
       body: JSON.stringify(value),

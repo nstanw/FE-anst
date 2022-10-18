@@ -7,9 +7,17 @@ import UserApi from '../../util/api/UserApi';
 import HOST from '../../util/HOST';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from './../../features/toogle/authStatus';
+import { PREFIX } from '../../util/fetchData';
+import ModalSignIn from './ModalSignIn';
+import { userActions } from './../../features/user/userSlice';
+
 function ModalSignUp() {
   const navigate = useNavigate();
-  const [errors, setErrors] = useState();
+  const dispatch = useDispatch();
+  const [errors, setErrors] = useState(false);
+  const store = useSelector((state) => state);
   const formik = useFormik({
     initialValues: {
       fullname: '',
@@ -33,37 +41,61 @@ function ModalSignUp() {
         fullname: values.fullname,
       };
 
-      const url = HOST.API + '/signup';
+      const url = PREFIX + '/signup';
       const config = {
         headers: { 'Content-Type': 'multipart/form-data' },
       };
 
       const Respose = await axios.post(url, data, config);
       console.log(Respose.data);
-      // if (Respose.data.password === false) {
-      //   alert('Please enter agian password');
-      //   // navigate('/')
-      // }
 
-      if (Respose.data.token) {
-        console.log(Respose.data.token);
-        return navigate('/');
+      const user = await Respose.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      if (Respose.data.email) {
+        return setErrors(!errors);
       }
+
+      if (Respose.data.status) {
+        console.log(Respose.data.token);
+        dispatch(actions.openSignUp());
+        dispatch(
+          userActions.logIn({
+            isLoggin: true,
+            token: Respose.data.token,
+            users: Respose.data.user
+          })
+        );
+        navigate('/');
+        return Respose.data;
+
+      }
+
       return Respose.data;
+
     },
   });
   return (
     <>
+      <div onClick={() => dispatch(actions.openSignUp())}>
+        <span>Sign Up</span>
+      </div>
       <div>
-        <Modal isOpen={true}>
-          <ModalHeader>Modal title</ModalHeader>
+        <Modal
+          isOpen={store.authStatus.openSignUp}
+          toggle={() => dispatch(actions.openSignUp())}
+        >
+          <ModalHeader>Sign Up</ModalHeader>
           <ModalBody>
             <form
               onSubmit={formik.handleSubmit}
               className='form-log'
             >
+              {errors  && 
+              <span className='span-form'>
+                Email have user. Please choise again !!!
+              </span>
+              }
               <div className='form-fiel form-email'>
-                <label htmlFor='email'>Email Address</label>
                 <input
                   id='email'
                   type='email'
@@ -71,39 +103,53 @@ function ModalSignUp() {
                   {...formik.getFieldProps('email')}
                 />
                 {formik.touched.email && formik.errors.email ? (
-                  <div>{formik.errors.email}</div>
+                  <span className='span-form'>{formik.errors.email}</span>
                 ) : null}
               </div>
               <div className='form-fiel form-fullname'>
-                <label htmlFor='fullname'>Full Name</label>
                 <input
                   id='fullname'
                   type='text'
+                  placeholder='Full Name'
                   {...formik.getFieldProps('fullname')}
                 />
                 {formik.touched.fullname && formik.errors.fullname ? (
-                  <div>{formik.errors.fullname}</div>
+                  <span className='span-form'>{formik.errors.fullname}</span>
                 ) : null}
               </div>
               <div className='form-fiel form-passwork'>
-                <label htmlFor='password'>Password</label>
                 <input
                   id='password'
                   type='password'
+                  placeholder='password'
                   {...formik.getFieldProps('password')}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <div>{formik.errors.password}</div>
+                  <span className='span-form'>{formik.errors.password}</span>
                 ) : null}
               </div>
               <div className='form-fiel form-sign-up'>
-                <div className='modal-footer d-flex justify-content-center'>
-                  <button
-                    type='submit'
-                    className='btn btn-deep-orange'
+                <div
+                  className='modal-footer d-flex justify-content-center'
+                  id='signUp-btn-form'
+                >
+                  <div className='signUp-submit'>
+                    <button
+                      type='submit'
+                      className='submit-form'
+                    >
+                      Sign up
+                    </button>
+                  </div>
+                  <div className='signUp-span'>
+                    <span>If you have an account, please </span>
+                  </div>
+                  <div
+                    className='signUp-navigate-signin submit-form'
+                    onClick={() => dispatch(actions.closeSignUp())}
                   >
-                    Sign up
-                  </button>
+                    <ModalSignIn />
+                  </div>
                 </div>
               </div>
             </form>

@@ -1,38 +1,35 @@
 import React from 'react';
-import axios from 'axios';
+
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { actions } from '../../features/toogle/toogleSlice';
 import {
-  postAvatar,
-  postLinkVideo,
   getUserAPI,
+  postUploadImageStudy,
 } from '../../features/user/userSlice';
 import { AiOutlineCamera } from 'react-icons/ai';
-function UploadStudyImage({ props }) {
+import { useNavigate } from 'react-router-dom';
+
+function UploadStudyImage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); 
+  const STORE = useSelector(state => state)
   const [show, setShow] = useState(false);
-  const URL = 'http://localhost:3333/user/';
-  const PostLink = URL + props;
   const [file, setFile] = useState(null);
-  const [status, setStatus] = useState('');
   const toggle = () => {
-    setShow(!show);
+    if (!STORE.user.isLoggin) {
+      return navigate('/Profile');
+    }
+    return setShow(!show);
   };
 
   const handleSubmit = async (event) => {
-    setStatus(''); // Reset status
     event.preventDefault();
+    //add file to formData
     const formData = new FormData();
     formData.append('avatar', file);
-    const resp = await axios.post(PostLink, formData, {
-      headers: {
-        'content-type': 'multipart/form-data',
-        // Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
-    dispatch(getUserAPI());
+
+    dispatch(postUploadImageStudy(formData)).then(() => dispatch(getUserAPI()));
     toggle();
   };
 
@@ -58,7 +55,6 @@ function UploadStudyImage({ props }) {
                 name='avatar'
                 onChange={(e) => setFile(e.target.files[0])}
               />
-              {status ? <h1>{status}</h1> : null}
             </form>
           </ModalBody>
           <ModalFooter>

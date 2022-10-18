@@ -3,41 +3,43 @@ import ShowModal from '../Study/ShowModal';
 import UploadStudyImage from '../User/UploadStudyImage';
 import { useSelector } from 'react-redux/es/exports';
 import { AiOutlineCamera } from 'react-icons/ai';
+import { PREFIX } from '../../util/fetchData';
 export default function ShowImageStudy() {
-  const userState = useSelector((state) => state.user);
+  const STORE = useSelector((state) => state);
 
   return (
     <div className='ShowImage'>
       <div className='image'>
-        {userState.image.link.includes('images/') ? (
+       { console.log(STORE.user.users.image)}
+        { !STORE.user.users.image.includes('http',0)  ? (
           <img
             className='imageSub'
-            src={'http://localhost:3333/' + userState.image.link}
+            src={PREFIX + "/" + STORE.user.users.image}
           />
         ) : (
           <img
             className='imageSub'
-            src={userState.image.link}
+            src={STORE.user.users.image}
           />
         )}
-        <div class='dropdown'>
+        <div id='dropdown-showImage'>
           <button
-            class='btnSimple dropdown-toggle'
+            className='btnSimple dropdown-toggle'
             type='button'
             data-toggle='dropdown'
           >
             <AiOutlineCamera /> Thay đổi ảnh
           </button>
-          <ul class='dropdown-menu'>
+          <ul className='dropdown-menu'>
             <li>
               <ShowModal
                 youtube={false}
-                image={false}
-                avatar={true}
+                image={true}
+                avatar={false}
               />
             </li>
             <li>
-              <UploadStudyImage props='postImg' />
+              <UploadStudyImage />
             </li>
           </ul>
         </div>

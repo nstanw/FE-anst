@@ -1,13 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { PREFIX } from '../../util/fetchData';
 
 export const postTask = createAsyncThunk(
-  'Task/postTask', // Example POST method implementation:
+  'TASK/POST_TASK', // Example POST method implementation:
   async (ojbdata) => {
     try {
-      const Respose = await fetch(' http://localhost:3333/addtask', {
+      const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+      const token = getTokenInStorage.token;
+      const url = PREFIX + '/addtask';
+      const Respose = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authentication: 'Bearer ' + token,
         },
         body: JSON.stringify(ojbdata),
       });
@@ -19,8 +24,18 @@ export const postTask = createAsyncThunk(
     }
   }
 );
-export const getTask = createAsyncThunk('Task/getTask', async () => {
-  const response = await fetch('http://localhost:3333/gettask');
+export const getTask = createAsyncThunk('TASK/GET_TASK', async () => {
+  const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+  const token = getTokenInStorage.token;
+  const url = PREFIX + '/gettask';
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authentication: 'Bearer ' + token,
+    },
+  });
   const data = await response.json();
   return data;
 });
@@ -30,10 +45,10 @@ const initialState = {
     x: [],
     y: [],
     labels: [],
-    name,
   },
   task: [],
   chartData: [],
+  note: '',
   post: { isErr: false, isLoading: true, isSusses: false },
   get: { isErr: false, isLoading: true, isSusses: false },
 };
@@ -41,7 +56,11 @@ const initialState = {
 const TaskSlice = createSlice({
   name: 'QLtask',
   initialState,
-  reducers: {},
+  reducers: {
+    addNote: (state, action) => {
+      state.note = action.payload;
+    },
+  },
   extraReducers: {
     [postTask.fulfilled]: (state, action) => {
       state.task = state.task.concat(action.payload);

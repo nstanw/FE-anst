@@ -1,37 +1,123 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { PREFIX } from '../../util/fetchData';
+
 export const getUserAPI = createAsyncThunk('GET_User', async () => {
   try {
-    const url = 'http://localhost:3333/getUser';
-    const Respose = await axios.get(url);
-    console.log(Respose.data);
-    return Respose.data;
+    const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+    const token = getTokenInStorage.token;
+    const url = PREFIX + '/getUser';
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: 'Bearer ' + token,
+      },
+    });
+    const data = await response.json();
+    console.log("getTokenInStorage>>>>>>",data);
+    return data;
   } catch (error) {
-    return rejectWithValue(err.response.data);
+    return console.log;
   }
 });
-export const postAvatar = createAsyncThunk(
-  'POST_ImgStudy_User',
+
+export const postLinkImage = createAsyncThunk(
+  'USER/POST_postLinkImage',
   async (img) => {
     try {
-      const url = 'http://localhost:3333/postlinkimage';
+      const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+      const token = getTokenInStorage.token;
+      const url = PREFIX + '/postlinkimage';
       const config = {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authentication: `Bearer ${token}`,
+        },
       };
       const Respose = await axios.post(url, img, config);
       return Respose.data;
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return console.log;
     }
   }
 );
+
+export const postLinkAvatar = createAsyncThunk(
+  'USER/POST_postLinkAvatar',
+  async (img) => {
+    try {
+      const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+      const token = getTokenInStorage.token;
+      const url = PREFIX + '/user/postAvatar';
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authentication: `Bearer ${token}`,
+        },
+      };
+      const Respose = await axios.post(url, img, config);
+      return Respose.data;
+    } catch (error) {
+      return console.log;
+    }
+  }
+);
+
+export const postUploadImageStudy = createAsyncThunk(
+  'USER/POST_postUploadImageStudy',
+  async (formData) => {
+    try {
+      const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+      const token = getTokenInStorage.token;
+      const url = PREFIX + '/user/postImg';
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authentication: `Bearer ${token}`,
+        },
+      };
+      const Respose = await axios.post(url, formData, config);
+      return Respose.data;
+    } catch (error) {
+      return console.log;
+    }
+  }
+);
+
+export const postUploadAVATAR = createAsyncThunk(
+  'USER/POST_postUplAVATAR',
+  async (formData) => {
+    try {
+      const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+      const token = getTokenInStorage.token;
+      const url = PREFIX + '/user/uploadAvatar';
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authentication: `Bearer ${token}`,
+        },
+      };
+      const Respose = await axios.post(url, formData, config);
+      return Respose.data;
+    } catch (error) {
+      return console.log;
+    }
+  }
+);
+
 export const postLinkVideo = createAsyncThunk(
   'POST_LinkVideo',
   async (video) => {
     try {
-      const url = 'http://localhost:3333/updatevideo';
+      const getTokenInStorage = JSON.parse(localStorage.getItem('user'));
+      const token = getTokenInStorage.token;
+      const url = PREFIX + '/updatevideo';
       const config = {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authentication: 'Bearer ' + token,
+        },
       };
       const Respose = await axios.post(url, video, config);
       return Respose.data;
@@ -40,51 +126,73 @@ export const postLinkVideo = createAsyncThunk(
     }
   }
 );
+
+const user = localStorage.getItem('user')
+  ? JSON.parse(localStorage.getItem('user'))
+  : {};
+let isLoggin = !!localStorage.getItem('user');
+
 const initialState = {
-  users: {
-    
-  },
+  users: user.user,
   image: 'https://gridfiti.com/wp-content/uploads/2021/09/Lofi-Girl.jpeg',
   video: 'nHeuZ8EIbSU',
   avatar: 'images/1665068658108-maxresdefault.jpg',
   isErr: false,
-  isLoading: true,
+  isLoading: false,
   isSusses: false,
-  isLoggin: false,
+  isLoggin: isLoggin,
+  getUserAPI:{
+    isErr: false,
+    isLoading: false,
+    isSusses: false,
+  },
+
+
+  default: true,
+  // token: token,
 };
+
 const UserSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state, actions) => {
+      state.isLoggin = false;
+    },
+    logIn: (state, actions) => {
+      state.isLoggin = true;
+      state.users = actions.payload.user;
+    },
+  },
   extraReducers: {
     [getUserAPI.pending]: (state, action) => {
-      state.isErr = false;
-      state.isLoading = true;
-      state.isSusses = false;
+      state.getUserAPI.isErr = false;
+      state.getUserAPI.isLoading = true;
+      state.getUserAPI.isSusses = false;
     },
     [getUserAPI.fulfilled]: (state, action) => {
-      state.users = action.payload;
-      state.isErr = false;
-      state.isLoading = false;
-      state.isSusses = true;
+      state.users = action.payload[0];
+      state.getUserAPI.isErr = false;
+      state.getUserAPI.isLoading = false;
+      state.getUserAPI.isSusses = true;
     },
     [getUserAPI.rejected]: (state, action) => {
-      // state.get.isErr = true;
-      // state.get.isLoading = false;
-      // state.get.isSusses = false;
+      state.getUserAPI.isErr = true;
+      state.getUserAPI.isLoading = false;
+      state.getUserAPI.isSusses = false;
     },
-    [postAvatar.pending]: (state, action) => {
+    [postLinkImage.pending]: (state, action) => {
       // state.image.post.isErr = false;
       // state.image.post.isLoading = true;
       // state.image.post.isSusses = false;
     },
-    [postAvatar.fulfilled]: (state, action) => {
+    [postLinkImage.fulfilled]: (state, action) => {
       // state.image.link = action.payload.result.image;
       // state.image.post.isErr = false;
       // state.image.post.isLoading = false;
       // state.image.post.isSusses = true;
     },
-    [postAvatar.rejected]: (state, action) => {
+    [postLinkImage.rejected]: (state, action) => {
       // state.image.post.isErr = true;
       // state.image.post.isLoading = false;
       // state.image.post.isSusses = false;
@@ -105,7 +213,7 @@ const UserSlice = createSlice({
       // state.video.post.isLoading = false;
       // state.video.post.isSusses = false;
     },
-  }, 
+  },
 });
 
 export const userActions = UserSlice.actions;

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Study() {
   const navigate = useNavigate();
-
   const study = useSelector((state) => state.study);
   const toogle = useSelector((state) => state.toogle);
   console.log('study', study);
@@ -75,18 +74,6 @@ export default function Study() {
             <div className='display__content'>
               <h1 className='font-weight-bold display-1'>Study</h1>
               <div>
-                {/* <label
-                  htmlFor='large-toggle'
-                  className='inline-flex relative items-center cursor-pointer'
-                >
-                  <input
-                    type='checkbox'
-                    value=''
-                    id='large-toggle'
-                    // checked
-                    className='sr-only peer'
-                  />
-                </label> */}
                 <Toogle />
                 <div className='pt-6'>
                   <span>#Time to Focus</span>
@@ -175,7 +162,7 @@ export default function Study() {
       className='study'
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.2 } }}
+      exit={{ opacity: 0, transition: { duration: 0.1 } }}
     >
       <div className='marginTop'></div>
       <div className='children'>

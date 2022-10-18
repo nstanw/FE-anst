@@ -4,26 +4,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { actions } from '../../features/toogle/toogleSlice';
 import {
-  postAvatar,
+  postLinkImage,
   postLinkVideo,
   getUserAPI,
+  postLinkAvatar
 } from '../../features/user/userSlice';
 import { AiOutlineLink } from 'react-icons/ai';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 function ShowModal(props) {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const STORE = useSelector(state => state)
   const [show, setShow] = useState(false);
   const [link, setlink] = useState('');
 
   const toggle = () => {
-    setShow(!show);
+    if (!STORE.user.isLoggin) {
+      return navigate('/Profile')
+    }
+    return setShow(!show);
+
   };
-  const handleShow = () => setShow(true);
   const handleChangeImage = () => {
     console.log('link:', link);
     console.log('props:', props);
     if (props.image) {
-      dispatch(postAvatar({ image: link }))
+      dispatch(postLinkImage({ image: link }))
         .then(() => dispatch(getUserAPI()))
         .catch((err) => console.error(err));
 
@@ -36,15 +44,10 @@ function ShowModal(props) {
   
     }
     if (props.avatar) {
-      const data = { avatar: link };
-      const url = 'http://localhost:3333/user/postAvatar';
-      const config = {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      };
-      axios
-        .post(url, data, config)
-        .then((res) => dispatch(getUserAPI()))
-        .catch((err) => console.error(err));
+      dispatch(postLinkAvatar({ avatar: link }))
+      .then()
+      .then(() => dispatch(getUserAPI()))
+      .catch((err) => console.error(err));
     }
     toggle();
   };
