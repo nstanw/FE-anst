@@ -1,4 +1,5 @@
-export const PREFIX = 'http://localhost:3333';
+export const PREFIX = 'https://dark-teal-squirrel-belt.cyclic.app';
+// export const PREFIX = 'http://localhost:3333';
 
 //GET REQUEST
 export const getData = async (path, token) => {
