@@ -5,7 +5,6 @@ import AIcom from './AIcom';
 
 function ApexChart(chartData) {
     const dataRenderChart = chartData.chartData.chartData;
-    console.log('chartData send apex:', chartData.chartData.chartData);
 
     // filter task toDay
     const now = new Date().toLocaleDateString();
@@ -13,7 +12,6 @@ function ApexChart(chartData) {
       const taskTime = new Date(task.updatedAt).toLocaleDateString();
       return now == taskTime;
     });
-    console.log(toDay);
     //consvertCreated to date
     const consvertCreated = (createdAt) => {
       const time12h = new Date(createdAt).toLocaleTimeString('en-GB');
@@ -52,7 +50,6 @@ function ApexChart(chartData) {
     //   ];
     // });
     // consvert createdAt to 24h hh:mm format
-    console.log('toDay: ', chartDay);
     
   const data = {
     series: [

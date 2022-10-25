@@ -10,7 +10,6 @@ export default function ShowImageStudy() {
   return (
     <div className='ShowImage'>
       <div className='image'>
-       { console.log(STORE.user.users.image)}
         { !STORE.user.users.image.includes('http',0)  ? (
           <img
             className='imageSub'

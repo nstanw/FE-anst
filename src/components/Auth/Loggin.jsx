@@ -1,8 +1,9 @@
 import React from 'react';
+import './auth.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { actions } from './../../features/toogle/authStatus';
+import { Link } from 'react-router-dom';
 import { userActions } from './../../features/user/userSlice';
 import {
   Dropdown,
@@ -19,9 +20,7 @@ export default function Aurthentication() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  useEffect(()=>{
-
-  },[])
+  useEffect(() => {}, []);
   const toogle = () => {
     setShow(!show);
   };
@@ -34,12 +33,20 @@ export default function Aurthentication() {
         <div>
           <img
             id='avatar-user'
-            src='favicon.ico'
+            src='user.jpg'
             alt=''
           />
         </div>
       </DropdownToggle>
       <DropdownMenu>
+        <DropdownItem>
+          <div className=''>
+            <Link to='/Profile'>
+              <span className='Profile-header'>Profile</span>
+            </Link>
+          </div>
+        </DropdownItem>
+
         {!store.user.isLoggin && (
           <DropdownItem>
             <ModalSignIn />

@@ -15,16 +15,13 @@ function AIcom(chartData) {
     setDate(e.target.value);
   };
 
-  console.log(date);
-  console.log('AICom:', chartData.chartData.chartData);
-
   // filter task toDay
   const now = new Date().toLocaleDateString();
   const toDay = dataRenderChart.filter((task) => {
     const taskTime = new Date(task.updatedAt).toLocaleDateString();
     return now == taskTime;
   });
-  console.log(toDay);
+
   const consvertCreated = (createdAt) => {
     const time12h = new Date(createdAt).toLocaleTimeString('en-GB');
     const formmat24h = time12h.split(':')[0] + ':' + time12h.split(':')[1];
@@ -49,9 +46,6 @@ function AIcom(chartData) {
     chartDay.skills = [...chartDay.skills, x.skills];
     chartDay.createdAt = [...chartDay.createdAt, consvertCreated(x.createdAt)];
   });
-  // consvert createdAt to 24h hh:mm format
-
-  console.log('toDay: ', chartDay);
 
   const minutes = chartDay.minutes;
   const effective = chartDay.effective;

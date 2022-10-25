@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getTask } from '../../features/data/TaskSlice';
 import ApexChart from './ApexChart';
 import AIcom from './AIcom';
-import { GoDashboard, GoFlame, GoClock } from 'react-icons/go';
 import ShowImageStudy from './ShowImageStudy';
 import { getUserAPI } from '../../features/user/userSlice';
 import ModalSignIn from '../Auth/ModalSignIn';
@@ -13,13 +12,13 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import ShowModal from '../Study/ShowModal';
 import UploadStudyImage from '../User/UploadStudyImage';
 import UploadAvatar from '../User/UploadAvatar';
+import Loading from '../Loading';
 
 function Profile() {
   const dispatch = useDispatch();
   const taskState = useSelector((state) => state.task);
   const userState = useSelector((state) => state.user);
   const STORE = useSelector((state) => state);
-  console.log('STORE', STORE);
   useEffect(() => {
     dispatch(getUserAPI());
     dispatch(getTask());
@@ -99,8 +98,8 @@ function Profile() {
         </div>
 
         <div className='avatarUser__Info'>
-          <h4>{STORE.user.users.email}</h4>
-          <h4>{STORE.user.users.fullname}</h4>
+          <h6>{STORE.user.users.email}</h6>
+          <h6>{STORE.user.users.fullname}</h6>
         </div>
       </div>
     );
@@ -109,7 +108,9 @@ function Profile() {
   return (
     <div className='report'>
       {/* checkisLoggin */}
-      {STORE.user.isLoggin ? (
+      {STORE.user.isLoggin && STORE.user.getUserAPI.isLoading && <Loading/>}
+      {STORE.user.isLoggin && STORE.user.getUserAPI.isErr && <h1>err</h1>}
+      {STORE.user.isLoggin && STORE.user.getUserAPI.isSusses ? (
         // check Loading
         <div className='Profile'>
           <div className='coverStudy'>

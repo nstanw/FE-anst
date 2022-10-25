@@ -20,18 +20,13 @@ export default function Navbar({ fixed }) {
               className='heading'
               onClick={() => dispatch(actions.reset())}
             >
-              BEE STUDY
+              BEE
             </span>
           </Link>
         </div>
         <div className='container-item'>
           <div className='nav-item'>
-            <Link
-              className='px-3 py-2 flex items-center text-xs font-bold leading-snug text-white hover:opacity-75'
-              to='/Profile'
-            >
-              <span className='ml-2 heading__sub'>Profile</span>
-            </Link>
+           
           </div>
           <div className='nav-item'>
             <div className='heading__sub heading-user'>

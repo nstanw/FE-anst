@@ -67,7 +67,7 @@ a {
   box-shadow: none;
   color: white;
   opacity: 1;
-  padding: 2px 12px;
+  padding: 2px 1px;
   border: medium none;
 }
 .active,
@@ -151,7 +151,7 @@ nav {
   display: flex;
   background-color: inherit;
   border-bottom: 1px solid rgb(114, 104, 104);
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 .headerStudy {

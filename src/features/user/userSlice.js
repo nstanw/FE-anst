@@ -15,10 +15,10 @@ export const getUserAPI = createAsyncThunk('GET_User', async () => {
       },
     });
     const data = await response.json();
-    console.log("getTokenInStorage>>>>>>",data);
-    return data[0];
+    console.log('getTokenInStorage>>>>>>', data);
+    return data;
   } catch (error) {
-    return console.log;
+    return console.log(error);
   }
 });
 
@@ -38,7 +38,7 @@ export const postLinkImage = createAsyncThunk(
       const Respose = await axios.post(url, img, config);
       return Respose.data;
     } catch (error) {
-      return console.log;
+      return console.log(error);
     }
   }
 );
@@ -59,7 +59,7 @@ export const postLinkAvatar = createAsyncThunk(
       const Respose = await axios.post(url, img, config);
       return Respose.data;
     } catch (error) {
-      return console.log;
+      return console.log(error);
     }
   }
 );
@@ -80,7 +80,7 @@ export const postUploadImageStudy = createAsyncThunk(
       const Respose = await axios.post(url, formData, config);
       return Respose.data;
     } catch (error) {
-      return console.log;
+      return console.log(error);
     }
   }
 );
@@ -101,7 +101,7 @@ export const postUploadAVATAR = createAsyncThunk(
       const Respose = await axios.post(url, formData, config);
       return Respose.data;
     } catch (error) {
-      return console.log;
+      return console.log(error);
     }
   }
 );
@@ -141,13 +141,13 @@ const initialState = {
   isLoading: false,
   isSusses: false,
   isLoggin: isLoggin,
-  getUserAPI:{
+  getUserAPI: {
+    user:{},
     isErr: false,
     isLoading: false,
     isSusses: false,
+    errMess:'',
   },
-
-
   default: true,
   // token: token,
 };
@@ -171,7 +171,8 @@ const UserSlice = createSlice({
       state.getUserAPI.isSusses = false;
     },
     [getUserAPI.fulfilled]: (state, action) => {
-      state.users = action.payload;
+      // state.users = action.payload;
+      state.getUserAPI.user = action.payload;
       state.getUserAPI.isErr = false;
       state.getUserAPI.isLoading = false;
       state.getUserAPI.isSusses = true;
