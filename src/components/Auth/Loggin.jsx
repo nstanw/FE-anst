@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { userActions } from './../../features/user/userSlice';
+import {actions} from '../../features/toogle/toogleSlice'
 import {
   Dropdown,
   DropdownToggle,
@@ -40,10 +41,14 @@ export default function Aurthentication() {
       </DropdownToggle>
       <DropdownMenu>
         <DropdownItem>
-          <div className=''>
-            <Link to='/Profile'>
-              <span className='Profile-header'>Profile</span>
-            </Link>
+          <div
+            className=''
+            onClick={() => {
+              dispatch(actions.hideStudy());
+              navigate('/Profile')
+            }}
+          >
+            <span className='Profile-header'>Profile</span>
           </div>
         </DropdownItem>
 

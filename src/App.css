@@ -370,8 +370,8 @@ nav {
   padding: 5px;
 }
 .countdown {
-  font-size: 100px;
-  font-weight: bold;
+  font-size: 70px;
+  font-weight:500;
   margin-top: 20px;
 }
 #show-Timer {

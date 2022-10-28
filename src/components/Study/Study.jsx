@@ -170,23 +170,27 @@ export default function Study() {
           {/* check isLoggin */}
           {STORE.user.isLoggin ? (
             // check host or link
-            !STORE.user.users.image.includes('http',0) ? (
-              <img src={PREFIX + "/" + STORE.user.users.image} 
-              id="study-image"
+            !STORE.user.users.image.includes('http', 0) ? (
+              <img
+                src={PREFIX + '/' + STORE.user.users.image}
+                id='study-image'
               />
             ) : (
-              <img src={STORE.user.users.image} 
-              id="study-image"
+              <img
+                src={STORE.user.users.image}
+                id='study-image'
               />
             )
           ) : // use default image
-          !STORE.user.image.includes('http',0) ? (
-            <img src={PREFIX + "/" + STORE.user.image} 
-            id="study-image"
+          !STORE.user.image.includes('http', 0) ? (
+            <img
+              src={PREFIX + '/' + STORE.user.image}
+              id='study-image'
             />
           ) : (
-            <img src={STORE.user.image} 
-            id="study-image"
+            <img
+              src={STORE.user.image}
+              id='study-image'
             />
           )}
           <div className='dropdown-study'>
@@ -199,7 +203,6 @@ export default function Study() {
             </button>
 
             <ul className='dropdown-menu'>
-              
               <li>
                 <ShowModal
                   youtube={false}
@@ -207,10 +210,9 @@ export default function Study() {
                 />
               </li>
               <li>
-                <UploadStudyImage/>
+                <UploadStudyImage />
               </li>
             </ul>
-
           </div>
         </div>
       </div>
@@ -218,7 +220,7 @@ export default function Study() {
   }
   let Youtube;
   if (STORE.user.isLoggin) {
-     Youtube = ({ YoutubeVideoID = STORE.user.users.video, autoplay }) => {
+    Youtube = ({ YoutubeVideoID = STORE.user.users.video, autoplay }) => {
       autoplay ? (autoplay = '?autoplay=1') : (autoplay = '');
       let youtubeId = YoutubeVideoID;
       return (
@@ -254,9 +256,8 @@ export default function Study() {
         </div>
       );
     };
-   
   } else {
-     Youtube = ({ YoutubeVideoID = STORE.user.video, autoplay }) => {
+    Youtube = ({ YoutubeVideoID = STORE.user.video, autoplay }) => {
       autoplay ? (autoplay = '?autoplay=1') : (autoplay = '');
       let youtubeId = YoutubeVideoID;
       return (
@@ -292,134 +293,134 @@ export default function Study() {
         </div>
       );
     };
-    
   }
 
-
   return (
-    <div
-    >
-      <div className='marginTop'></div>
-      <div className='children'>
-        <div className='toogleButton'>
-          <StudyAndMode />
-        </div>
+    <div>
+      {STORE.toogle.showStudy && <div className='marginTop'></div>}
 
-        <div className='coffe'>
-          <div className='take-note'>
-            <img
-              src='coffe.png'
-              alt=''
-              className='userInfor--avatar-size'
-            />
-            <Note />
+      {STORE.toogle.showStudy && (
+        <div className='children'>
+          <div className='toogleButton'>
+            <StudyAndMode />
           </div>
-        </div>
 
-        <div className='task-timer'>
-          {toogle.status ? (
-            <>
-              <Timer task={task} />
-            </>
-          ) : (
-            <div className='taskDetail'>
-              <motion.div
-                className='form-design'
-                initial={{ width: 0 }}
-                animate={{ width: '100%' }}
-                exit={{ x: window.innerWidth }}
-              >
-                {/* // tass form */}
-                <div className='task'>
-                  <a href='#focusFormTaskDetails'>
-                    <div
-                      className='task-detail'
-                      onClick={() => dispatch(showTaskForm())}
-                    >
-                      <div className='p-3 container-taskDetail'>
-                        <div className='taskName textmeno'>
-                          {task.task ? (
-                            <span id='taskName'> {task.task}</span>
-                          ) : (
-                            <span id='taskName'>Task...</span>
-                          )}
-                        </div>
-                        <div id='timeAndEdit'>
-                          <div className='px-2 textmeno'>
-                            {task.tomato} minutes
+          <div className='coffe'>
+            <div className='take-note'>
+              <img
+                src='coffe.png'
+                alt=''
+                className='userInfor--avatar-size'
+              />
+              <Note />
+            </div>
+          </div>
+
+          <div className='task-timer'>
+            {toogle.status ? (
+              <>
+                <Timer task={task} />
+              </>
+            ) : (
+              <div className='taskDetail'>
+                <motion.div
+                  className='form-design'
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  exit={{ x: window.innerWidth }}
+                >
+                  {/* // tass form */}
+                  <div className='task'>
+                    <a href='#focusFormTaskDetails'>
+                      <div
+                        className='task-detail'
+                        onClick={() => dispatch(showTaskForm())}
+                      >
+                        <div className='p-3 container-taskDetail'>
+                          <div className='taskName textmeno'>
+                            {task.task ? (
+                              <span id='taskName'> {task.task}</span>
+                            ) : (
+                              <span id='taskName'>Task...</span>
+                            )}
+                          </div>
+                          <div id='timeAndEdit'>
+                            <div className='px-2 textmeno'>
+                              {task.tomato} minutes
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
-                  {study.taskForm ? (
-                    <form
-                      id='focusFormTaskDetails'
-                      className='form'
-                      onSubmit={handleSubmit}
-                    >
-                      <div className='taskPadding'>
-                        <div className='paddingUpDown'>
-                          <div className='addTaskDetail'>
-                            <div>
-                              <input
-                                className='inputAddTask'
-                                placeholder='What do you want to do?'
-                                name='task'
-                                value={task.task}
-                                onChange={(e) => inputsHandler(e)}
-                              />
-                            </div>
-                            <div className='pomodoro'>
-                              <span>Pomodoro</span>
+                    </a>
+                    {study.taskForm ? (
+                      <form
+                        id='focusFormTaskDetails'
+                        className='form'
+                        onSubmit={handleSubmit}
+                      >
+                        <div className='taskPadding'>
+                          <div className='paddingUpDown'>
+                            <div className='addTaskDetail'>
                               <div>
                                 <input
-                                  value={task.tomato}
+                                  className='inputAddTask'
+                                  placeholder='What do you want to do?'
+                                  name='task'
+                                  value={task.task}
                                   onChange={(e) => inputsHandler(e)}
-                                  className='mt-2 countPomodoro textmeno'
-                                  type='number'
-                                  name='tomato'
-                                  id='tomato'
-                                  placeholder='Nhập thời gian học'
                                 />
-                                <button
-                                  onClick={handleCounterUp}
-                                  className='upPomodoro'
-                                >
-                                  <img src='/caret-up.png' />
-                                </button>
-                                <button
-                                  onClick={handleCounterDown}
-                                  className='downPomodoro'
-                                >
-                                  <img src='/caret-down.png' />
-                                </button>
+                              </div>
+                              <div className='pomodoro'>
+                                <span>Pomodoro</span>
+                                <div>
+                                  <input
+                                    value={task.tomato}
+                                    onChange={(e) => inputsHandler(e)}
+                                    className='mt-2 countPomodoro textmeno'
+                                    type='number'
+                                    name='tomato'
+                                    id='tomato'
+                                    placeholder='Nhập thời gian học'
+                                  />
+                                  <button
+                                    onClick={handleCounterUp}
+                                    className='upPomodoro'
+                                  >
+                                    <img src='/caret-up.png' />
+                                  </button>
+                                  <button
+                                    onClick={handleCounterDown}
+                                    className='downPomodoro'
+                                  >
+                                    <img src='/caret-down.png' />
+                                  </button>
+                                </div>
                               </div>
                             </div>
+                            <div className='py-2'></div>
                           </div>
-                          <div className='py-2'></div>
                         </div>
-                      </div>
-                      <div className='saveTask'>
-                        <button
-                          type='button'
-                          className='btnSave'
-                          onClick={(e) => {
-                            handleSubmit(e);
-                            dispatch(showTaskForm());
-                          }}
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </form>
-                  ) : null}
-                </div>
-              </motion.div>
-            </div>
-          )}
+                        <div className='saveTask'>
+                          <button
+                            type='button'
+                            className='btnSave'
+                            onClick={(e) => {
+                              handleSubmit(e);
+                              dispatch(showTaskForm());
+                            }}
+                          >
+                            Save
+                          </button>
+                        </div>
+                      </form>
+                    ) : null}
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

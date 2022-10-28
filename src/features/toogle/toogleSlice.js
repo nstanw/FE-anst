@@ -20,12 +20,17 @@ const ToogleSlice = createSlice({
     },
     image: {
       link: '',
-    }
+    },
+    showStudy: true,
   },
   reducers: {
     reset: (state, action) => {
       state.status = false;
-      state.feedback =  true;
+      state.feedback =  true; 
+      state.showStudy = true;
+    },
+    hideStudy: (state, action) => {
+      state.showStudy = false;
     },
     mode: (state) => {
       state.status = !state.status;
