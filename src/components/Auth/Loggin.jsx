@@ -68,6 +68,7 @@ export default function Aurthentication() {
           <DropdownItem>
             <span
               onClick={() => {
+                dispatch(actions.reset());
                 dispatch(userActions.logOut());
                 localStorage.removeItem('user');
                 navigate('/');
