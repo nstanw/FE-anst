@@ -19,7 +19,13 @@ function Countdown() {
     const minute = Math.floor(countdown / 60);
     const seconds =
       countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
-    const timerCountDown = `${minute} : ${seconds}`;
+
+    let timerCountDown;
+    if (isNaN(seconds)) {
+      timerCountDown = `00 : 00`;
+    } else {
+      timerCountDown = `${minute} : ${seconds}`;
+    }
 
     document.title = timerCountDown;
   }, [countdown]);
@@ -27,7 +33,13 @@ function Countdown() {
   const minute = Math.floor(countdown / 60);
   const seconds =
     countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
-  const timerCountDown = seconds  === NaN ? `00:00` :  `${minute} : ${seconds}`;
+
+  let timerCountDown;
+  if (isNaN(seconds)) {
+    timerCountDown = `00 : 00`;
+  } else {
+    timerCountDown = `${minute} : ${seconds}`;
+  }
   return (
     <div className='Countdown'>
       <div className='relax'>
@@ -73,7 +85,7 @@ function Countdown() {
           />
         </audio>
       )}
-      {seconds === 'NaN' && (
+      {isNaN(seconds) && (
         <audio
           // ref='audio_tag'
           autoPlay={true}

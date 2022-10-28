@@ -116,7 +116,7 @@ function AIcom(chartData) {
                     <th>Time</th>
                     <th>Task</th>
                     <th>Skills</th>
-                    <th>Notes</th>
+                    <th>Feebback</th>
                   </tr>
                 </thead>
                 <tbody>

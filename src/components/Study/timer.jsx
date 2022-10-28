@@ -39,7 +39,13 @@ function Timer() {
     const minute = Math.floor(countdown / 60);
     const seconds =
       countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
-    const timerCountDown = `${minute} : ${seconds}`;
+    
+      let timerCountDown ;
+    if (isNaN(seconds)) {
+      timerCountDown = `00 : 00`
+    } else {
+      timerCountDown = `${minute} : ${seconds}`
+    }
     //set Title Web
     document.title = timerCountDown;
   }, [countdown]);
@@ -47,7 +53,7 @@ function Timer() {
   const minute = Math.floor(countdown / 60);
   const seconds =
     countdown % 60 < 10 ? `0${countdown % 60}` : `${countdown % 60}`;
-  const timerCountDown = seconds === NaN ? null : `${minute} : ${seconds}`;
+  const timerCountDown = isNaN(seconds) ? null : `${minute} : ${seconds}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -233,7 +239,7 @@ function Timer() {
                     />
                   </audio>
                 )}
-                {seconds === 'NaN' && (
+                {isNaN(seconds) && (
                   <audio
                     // ref='audio_tag'
                     autoPlay={true}
