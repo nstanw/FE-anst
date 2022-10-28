@@ -15,8 +15,8 @@ export const getUserAPI = createAsyncThunk('GET_User', async () => {
       },
     });
     const data = await response.json();
-    console.log('getTokenInStorage>>>>>>', data);
-    return data;
+    console.log('getTokenInStorage>>>>>>', data[0]);
+    return data[0];
   } catch (error) {
     return console.log(error);
   }
@@ -171,7 +171,7 @@ const UserSlice = createSlice({
       state.getUserAPI.isSusses = false;
     },
     [getUserAPI.fulfilled]: (state, action) => {
-      // state.users = action.payload;
+      state.users = action.payload;
       state.getUserAPI.user = action.payload;
       state.getUserAPI.isErr = false;
       state.getUserAPI.isLoading = false;

@@ -29,7 +29,7 @@ function Timer() {
           return preState - 1;
         }
       });
-    }, 1000);
+    }, 1);
     return () => {
       clearInterval(timerId);
     };
@@ -66,6 +66,7 @@ function Timer() {
     console.log('submit feedback:', data);
 
     const payloadTask = {
+      ghiChu: data.ghiChu,
       email: data.email,
       task: {
         name: props.task.name,
