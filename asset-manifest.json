@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.3bc0212f.css",
-    "main.js": "/static/js/main.418b3d50.js",
-    "static/js/787.90d50f5b.chunk.js": "/static/js/787.90d50f5b.chunk.js",
-    "static/media/toggleOff.png": "/static/media/toggleOff.cc588a811c47a960bd1e.png",
-    "index.html": "/index.html",
-    "main.3bc0212f.css.map": "/static/css/main.3bc0212f.css.map",
-    "main.418b3d50.js.map": "/static/js/main.418b3d50.js.map",
-    "787.90d50f5b.chunk.js.map": "/static/js/787.90d50f5b.chunk.js.map"
+    "main.css": "/FE-anst/static/css/main.78fec72c.css",
+    "main.js": "/FE-anst/static/js/main.d9921b24.js",
+    "static/js/787.90d50f5b.chunk.js": "/FE-anst/static/js/787.90d50f5b.chunk.js",
+    "static/media/toggleOff.png": "/FE-anst/static/media/toggleOff.cc588a811c47a960bd1e.png",
+    "index.html": "/FE-anst/index.html",
+    "main.78fec72c.css.map": "/FE-anst/static/css/main.78fec72c.css.map",
+    "main.d9921b24.js.map": "/FE-anst/static/js/main.d9921b24.js.map",
+    "787.90d50f5b.chunk.js.map": "/FE-anst/static/js/787.90d50f5b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3bc0212f.css",
-    "static/js/main.418b3d50.js"
+    "static/css/main.78fec72c.css",
+    "static/js/main.d9921b24.js"
   ]
 }
