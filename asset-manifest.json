@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/FE-anst/static/css/main.78fec72c.css",
-    "main.js": "/FE-anst/static/js/main.8b9cd7c6.js",
+    "main.js": "/FE-anst/static/js/main.49fecbc1.js",
     "static/js/787.90d50f5b.chunk.js": "/FE-anst/static/js/787.90d50f5b.chunk.js",
     "static/media/toggleOff.png": "/FE-anst/static/media/toggleOff.cc588a811c47a960bd1e.png",
     "index.html": "/FE-anst/index.html",
     "main.78fec72c.css.map": "/FE-anst/static/css/main.78fec72c.css.map",
-    "main.8b9cd7c6.js.map": "/FE-anst/static/js/main.8b9cd7c6.js.map",
+    "main.49fecbc1.js.map": "/FE-anst/static/js/main.49fecbc1.js.map",
     "787.90d50f5b.chunk.js.map": "/FE-anst/static/js/787.90d50f5b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.78fec72c.css",
-    "static/js/main.8b9cd7c6.js"
+    "static/js/main.49fecbc1.js"
   ]
 }
