@@ -15,8 +15,7 @@ export const getUserAPI = createAsyncThunk('GET_User', async () => {
       },
     });
     const data = await response.json();
-    console.log('getTokenInStorage>>>>>>', data[0]);
-    return data[0];
+    return data;
   } catch (error) {
     return console.log(error);
   }
